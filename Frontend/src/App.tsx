@@ -1,26 +1,28 @@
-import * as React from 'react';
-import Grid from '@mui/material/Grid';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import ReactECharts from 'echarts-for-react';
-import CalendarView from './CalendarView.tsx';
+import Grid from "@mui/material/Grid";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import ReactECharts from "echarts-for-react";
+import CalendarView from "./CalendarView";
+import LineChart from "./LineChart";
 
 const sampleOption = {
   xAxis: {
-    type: 'category',
-    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    type: "category",
+    data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    type: "category",
+    data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
   },
   yAxis: {
-    type: 'value'
+    type: "value",
   },
   series: [
     {
       data: [820, 932, 901, 934, 1290, 1330, 1320],
-      type: 'line'
-    }
-  ]
+      type: "line",
+    },
+  ],
 };
 
 function Income() {
@@ -38,9 +40,9 @@ function Calendar() {
   return (
     <Card>
       <CardContent>
-              <Typography variant="h6">Calendar</Typography>
-              <CalendarView />
-            </CardContent>
+        <Typography variant="h6">Calendar</Typography>
+        <CalendarView />
+      </CardContent>
     </Card>
   );
 }
@@ -48,7 +50,10 @@ function Calendar() {
 function Dashboard() {
   return (
     <Box>
-      <Typography variant="h5" gutterBottom>Dashboard</Typography>
+      <Typography variant="h5" gutterBottom>
+        Dashboard
+      </Typography>
+      <LineChart />
       <Grid container spacing={2}>
         {[1, 2, 3].map((id) => (
           <Grid item xs={12} key={id}>
@@ -96,6 +101,5 @@ function App() {
     </Box>
   );
 }
-
 
 export default App;
