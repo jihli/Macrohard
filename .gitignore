@@ -1,6 +1,7 @@
 # Dependencies
 /Frontend/node_modules
 /Frontend/package-lock.json
-
+/Backend/__pycache__
+/Database/node_modules
 # macOS
 .DS_Store

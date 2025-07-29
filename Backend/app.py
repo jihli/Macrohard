@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 from db import get_db_connection  # Import the connection function
 
-app = Flask(__name__, template_folder='../frontend')
+app = Flask(__name__, template_folder='../Frontend/public')
 
 # Function to fetch all transactions
 def get_all_transactions(cursor):
@@ -70,7 +70,7 @@ def index():
     connection.close()
 
     # Render the results in a template
-    return render_template('index.html', 
+    return render_template('test.html', 
                            allTransactions=allTransactions, 
                            allRecurringTransactions=allRecurringTransactions,
                            allHoldings=allHoldings,

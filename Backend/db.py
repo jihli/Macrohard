@@ -6,6 +6,6 @@ def get_db_connection():
         host="localhost",        # or '127.0.0.1'
         user="root",             # Your MySQL username
         password="n3u3da!",      # Your MySQL password
-        database="bankAccount"   # The database you want to connect to
+        database="wealth_app"   # The database you want to connect to
     )
     return connection
