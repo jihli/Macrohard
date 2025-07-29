@@ -1,14 +1,14 @@
-'use client'
+"use client";
 
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import {
   BellIcon,
   MagnifyingGlassIcon,
   PlusIcon,
-} from '@heroicons/react/24/outline'
+} from "@heroicons/react/24/outline";
 
 export default function Header() {
-  const [searchQuery, setSearchQuery] = useState('')
+  const [searchQuery, setSearchQuery] = useState("");
 
   return (
     <header className="bg-white shadow-sm border-b border-gray-200 px-6 py-4">
@@ -54,5 +54,5 @@ export default function Header() {
         </div>
       </div>
     </header>
-  )
-} 
+  );
+}

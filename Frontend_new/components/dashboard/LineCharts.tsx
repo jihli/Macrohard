@@ -31,7 +31,9 @@ const data = [
 export default function LineCharts() {
   return (
     <div className="mb-6 bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-      <h4 className="text-lg font-semibold text-gray-900 mb-4">总资产走势</h4>
+      <h4 className="text-lg font-semibold text-gray-900 mb-4">
+        Total Assets Trend
+      </h4>
       <div className="h-48">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data}>
@@ -41,7 +43,7 @@ export default function LineCharts() {
             <Tooltip
               formatter={(value: number) => [
                 `¥${value.toLocaleString()}`,
-                "总资产",
+                "Total Assets",
               ]}
               labelFormatter={(label) => `${label}`}
             />

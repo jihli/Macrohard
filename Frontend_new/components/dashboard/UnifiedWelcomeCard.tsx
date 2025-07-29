@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface UnifiedWelcomeCardProps {
   userName?: string;
@@ -23,19 +23,19 @@ const UnifiedWelcomeCard: React.FC<UnifiedWelcomeCardProps> = ({
   monthlyExpenses = 8450,
   expensesChange = -3.1,
   savingsRate = 44.2,
-  savingsChange = 2.8
+  savingsChange = 2.8,
 }) => {
   const formatCurrency = (amount: number) => {
     return `¥${amount.toLocaleString()}`;
   };
 
   const formatPercentage = (value: number) => {
-    const sign = value >= 0 ? '+' : '';
+    const sign = value >= 0 ? "+" : "";
     return `${sign}${value}%`;
   };
 
   const getChangeColor = (change: number) => {
-    return change >= 0 ? 'text-green-600' : 'text-red-600';
+    return change >= 0 ? "text-green-600" : "text-red-600";
   };
 
   return (
@@ -45,9 +45,7 @@ const UnifiedWelcomeCard: React.FC<UnifiedWelcomeCardProps> = ({
         <h1 className="text-2xl font-bold text-gray-900 mb-1">
           欢迎回来，{userName}！
         </h1>
-        <p className="text-gray-600">
-          今天是 {currentDate}
-        </p>
+        <p className="text-gray-600">今天是 {currentDate}</p>
       </div>
 
       {/* Financial Metrics Grid */}
@@ -80,7 +78,9 @@ const UnifiedWelcomeCard: React.FC<UnifiedWelcomeCardProps> = ({
           <p className="text-2xl font-bold text-gray-900">
             {formatCurrency(monthlyExpenses)}
           </p>
-          <p className={`text-sm font-medium ${getChangeColor(expensesChange)}`}>
+          <p
+            className={`text-sm font-medium ${getChangeColor(expensesChange)}`}
+          >
             {formatPercentage(expensesChange)} vs 上月
           </p>
         </div>
@@ -88,9 +88,7 @@ const UnifiedWelcomeCard: React.FC<UnifiedWelcomeCardProps> = ({
         {/* Savings Rate */}
         <div className="space-y-2">
           <h3 className="text-sm font-medium text-gray-600">储蓄率</h3>
-          <p className="text-2xl font-bold text-gray-900">
-            {savingsRate}%
-          </p>
+          <p className="text-2xl font-bold text-gray-900">{savingsRate}%</p>
           <p className={`text-sm font-medium ${getChangeColor(savingsChange)}`}>
             {formatPercentage(savingsChange)} vs 上月
           </p>
@@ -100,4 +98,4 @@ const UnifiedWelcomeCard: React.FC<UnifiedWelcomeCardProps> = ({
   );
 };
 
-export default UnifiedWelcomeCard; 
+export default UnifiedWelcomeCard;

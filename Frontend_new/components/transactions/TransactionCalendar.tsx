@@ -136,72 +136,106 @@ export default function TransactionCalendar({
   const monthNames = [
     '一月', '二月', '三月', '四月', '五月', '六月',
     '七月', '八月', '九月', '十月', '十一月', '十二月'
-  ]
-
-  const dayNames = ['日', '一', '二', '三', '四', '五', '六']
-
-  return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-semibold text-gray-900">交易日历</h2>
-        <div className="flex items-center space-x-2">
-          <button
-            onClick={() => navigateMonth('prev')}
-            className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-          <span className="text-lg font-medium text-gray-900">
-            {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
-          </span>
-          <button
-            onClick={() => navigateMonth('next')}
-            className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      {/* 星期标题 */}
-      <div className="grid grid-cols-7 gap-1 mb-2">
-        {dayNames.map((day) => (
-          <div key={day} className="text-center text-sm font-medium text-gray-500 py-2">
-            {day}
-          </div>
-        ))}
-      </div>
-
-      {/* 日历网格 */}
-      <div className="grid grid-cols-7 gap-1">
-        {calendarDays.map((date, index) => (
-          <div key={index} className="relative">
-            <div
-              className={getDateStyles(date)}
-              onClick={() => onDateSelect(date)}
-            >
-              {date.getDate()}
++       'January', 'February', 'March', 'April', 'May', 'June',
++       'July', 'August', 'September', 'October', 'November', 'December'
+      ]
+      const dayNames = [
+-       '日', '一', '二', '三', '四', '五', '六'
++       'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'
+      ]
+      
+      return (
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+-         <h2 className="text-xl font-semibold text-gray-900">交易日历</h2>
++         <h2 className="text-xl font-semibold text-gray-900">Transaction Calendar</h2>
+          
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center space-x-2">
+              <button
+                onClick={() => setCurrentMonth((prev) => new Date(prev.getFullYear(), prev.getMonth() - 1))}
+                className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200"
+              >
+                <ChevronLeftIcon className="w-4 h-4 text-gray-600 mx-auto" />
+              </button>
+              <h3 className="text-lg font-medium">{monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}</h3>
+              <button
+                onClick={() => setCurrentMonth((prev) => new Date(prev.getFullYear(), prev.getMonth() + 1))}
+                className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200"
+              >
+                <ChevronRightIcon className="w-4 h-4 text-gray-600 mx-auto" />
+              </button>
             </div>
-            {getTransactionIndicator(date)}
+            <div className="flex items-center space-x-2">
+              <button
+                onClick={() => setCurrentMonth(new Date())}
+                className="px-3 py-1.5 text-sm font-medium bg-blue-600 text-white rounded-md hover:bg-blue-700"
+              >
+                本月
+              </button>
+              <button
+                onClick={() => setSelectedDate(null)}
+                className="px-3 py-1.5 text-sm font-medium bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200"
+              >
+                清除选择
+              </button>
+            </div>
           </div>
-        ))}
-      </div>
-
-      {/* 图例 */}
-      <div className="mt-4 flex items-center justify-center space-x-4 text-sm text-gray-600">
-        <div className="flex items-center space-x-2">
-          <div className="w-3 h-3 rounded-full bg-green-500"></div>
-          <span>收入</span>
+          
+-         {/* 星期标题 */}
++         {/* Week Titles */}
+          <div className="grid grid-cols-7 gap-2 mb-4">
+            {dayNames.map((day, index) => (
+              <div key={index} className="text-center text-sm font-medium text-gray-600">{day}</div>
+            ))}
+          </div>
+          
+-         {/* 日历网格 */}
++         {/* Calendar Grid */}
+          <div className="grid grid-cols-7 gap-2">
+            {calendarDays.map((day, index) => (
+              <div
+                key={index}
+                className={`${
+                  isSameDay(day, new Date()) ? 'bg-blue-100 text-blue-800' : ''
+                } ${
+                  isSameMonth(day, currentMonth) ? 'text-gray-800' : 'text-gray-400'
+                } ${
+                  isSameDay(day, selectedDate) ? 'ring-2 ring-blue-500' : ''
+                } relative rounded p-2 hover:bg-gray-100 transition-colors cursor-pointer`}
+                onClick={() => setSelectedDate(day)}
+              >
+                <div className="text-center text-sm font-medium">{day.getDate()}</div>
+                <div className="flex justify-center mt-1">
+                  {getTransactionCount(day) > 0 && (
+                    <div className="flex space-x-1">
+                      {getTransactionTotal(day) > 0 ? (
+                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                      ) : (
+                        <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                      )}
+                      <span className="text-xs font-medium">{getTransactionCount(day)}</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+          
+-         {/* 图例 */}
++         {/* Legend */}
+          <div className="mt-6 flex items-center space-x-4">
+            <div className="flex items-center space-x-1">
+              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+-             <span>收入</span>
++             <span>Income</span>
+            </div>
+            <div className="flex items-center space-x-1">
+              <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+-             <span>支出</span>
++             <span>Expense</span>
+            </div>
+          </div>
         </div>
-        <div className="flex items-center space-x-2">
-          <div className="w-3 h-3 rounded-full bg-red-500"></div>
-          <span>支出</span>
-        </div>
-      </div>
-    </div>
-  )
-} 
+      )
+    }
+}
