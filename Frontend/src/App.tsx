@@ -5,7 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import ReactECharts from 'echarts-for-react';
-import CalendarView from './CalendarView';
+import CalendarView from './CalendarView.tsx';
 
 const sampleOption = {
   xAxis: {
