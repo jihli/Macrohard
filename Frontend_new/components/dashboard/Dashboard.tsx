@@ -13,23 +13,6 @@ import AIRecommendations from './AIRecommendations'
 export default function Dashboard() {
   return (
     <div className="space-y-6">
-      {/* 欢迎信息 */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-6 text-white"
-      >
-        <h1 className="text-2xl font-bold mb-2">欢迎回来，张小明！</h1>
-        <p className="text-blue-100">
-          今天是 {new Date().toLocaleDateString('zh-CN', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            weekday: 'long',
-          })}
-        </p>
-      </motion.div>
-
       {/* 概览卡片 */}
       <OverviewCards />
 

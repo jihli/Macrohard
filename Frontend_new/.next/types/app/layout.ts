@@ -1,4 +1,4 @@
-// File: /Users/jacobavalanchel/wealth-management-app/app/layout.tsx
+// File: /Users/jacobavalanchel/WorkgroupLocal/Final_project_frontend/Frontend_new/app/layout.tsx
 import * as entry from '../../../app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
