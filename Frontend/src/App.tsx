@@ -34,19 +34,22 @@ function Income() {
   );
 }
 
+function Calendar() {
+  return (
+    <Card>
+      <CardContent>
+              <Typography variant="h6">Calendar</Typography>
+              <CalendarView />
+            </CardContent>
+    </Card>
+  );
+}
+
 function Dashboard() {
   return (
     <Box>
       <Typography variant="h5" gutterBottom>Dashboard</Typography>
       <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <Card>
-            <CardContent>
-              <Typography variant="h6">Calendar</Typography>
-              <CalendarView />
-            </CardContent>
-          </Card>
-        </Grid>
         {[1, 2, 3].map((id) => (
           <Grid item xs={12} key={id}>
             <Card>
@@ -85,6 +88,9 @@ function App() {
         </Grid>
         <Grid item xs={12} md={2}>
           <InvestmentAnalysis />
+        </Grid>
+        <Grid item xs={12} md={12}>
+          <Calendar />
         </Grid>
       </Grid>
     </Box>
