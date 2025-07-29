@@ -3,6 +3,7 @@
 import React from 'react'
 import Sidebar from '@/components/layout/Sidebar'
 import Header from '@/components/layout/Header'
+import InvestmentRadarChart from '@/components/dashboard/InvestmentRadarChart'
 
 export default function InvestmentsPage() {
   return (
@@ -76,55 +77,32 @@ export default function InvestmentsPage() {
                         </span>
                       </div>
                       
-                      <div className="grid grid-cols-2 gap-4 text-sm">
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                         <div>
                           <p className="text-gray-600">投资金额</p>
                           <p className="font-medium">¥{investment.amount.toLocaleString()}</p>
                         </div>
                         <div>
-                          <p className="text-gray-600">当前价值</p>
-                          <p className="font-medium">¥{(investment.amount * (1 + investment.return / 100)).toLocaleString()}</p>
+                          <p className="text-gray-600">当前价格</p>
+                          <p className="font-medium">¥{investment.currentPrice}</p>
                         </div>
                         <div>
                           <p className="text-gray-600">收益率</p>
-                          <p className={`font-medium ${investment.return > 0 ? 'text-green-600' : 'text-red-600'}`}>
+                          <p className={`font-medium ${
+                            investment.return > 0 ? 'text-green-600' : 'text-red-600'
+                          }`}>
                             {investment.return > 0 ? '+' : ''}{investment.return}%
                           </p>
                         </div>
                         <div>
-                          <p className="text-gray-600">当前价格</p>
-                          <p className="font-medium">¥{investment.currentPrice}</p>
+                          <p className="text-gray-600">当前价值</p>
+                          <p className="font-medium">
+                            ¥{(investment.shares * investment.currentPrice).toLocaleString()}
+                          </p>
                         </div>
                       </div>
                     </div>
                   ))}
-                </div>
-              </div>
-
-              {/* 投资统计 */}
-              <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-6">投资统计</h2>
-                
-                <div className="space-y-6">
-                  <div className="text-center p-4 bg-blue-50 rounded-lg">
-                    <p className="text-2xl font-bold text-blue-600">¥58,000</p>
-                    <p className="text-sm text-gray-600">总投资金额</p>
-                  </div>
-                  
-                  <div className="text-center p-4 bg-green-50 rounded-lg">
-                    <p className="text-2xl font-bold text-green-600">+16.7%</p>
-                    <p className="text-sm text-gray-600">总收益率</p>
-                  </div>
-                  
-                  <div className="text-center p-4 bg-purple-50 rounded-lg">
-                    <p className="text-2xl font-bold text-purple-600">¥9,700</p>
-                    <p className="text-sm text-gray-600">总收益</p>
-                  </div>
-                  
-                  <div className="text-center p-4 bg-orange-50 rounded-lg">
-                    <p className="text-2xl font-bold text-orange-600">3</p>
-                    <p className="text-sm text-gray-600">投资产品</p>
-                  </div>
                 </div>
                 
                 <div className="mt-6">
@@ -150,6 +128,22 @@ export default function InvestmentsPage() {
                     ))}
                   </div>
                 </div>
+              </div>
+
+              {/* 雷达图 */}
+              <div className="lg:col-span-1">
+                <InvestmentRadarChart 
+                  riskLevel="medium"
+                  currentAllocation={[
+                    { type: '股票', percentage: 43 },
+                    { type: '债券', percentage: 31 },
+                    { type: 'ETF', percentage: 15 },
+                    { type: '基金', percentage: 11 },
+                    { type: '加密货币', percentage: 0 },
+                    { type: '房地产', percentage: 0 },
+                    { type: '其他', percentage: 0 },
+                  ]}
+                />
               </div>
             </div>
           </div>
