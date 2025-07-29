@@ -14,3 +14,5 @@
 # macOS
 .DS_Store
 /Frontend_new/.next/
+
+/backend/__pycache__/
