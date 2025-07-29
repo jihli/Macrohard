@@ -1,17 +1,21 @@
+# backend/app.py
+
 import os
 from flask import Flask
 from sqlalchemy import create_engine
 
-
 def create_app(config: dict = None) -> Flask:
     """
-    Flask 应用工厂
-    - 从环境变量 DATABASE_URL 获取数据库 URL
-    - 注册各模块 Blueprint
+    应用工厂：创建 Flask 实例并注册各模块路由
 
-    :param config: 覆盖默认配置，如测试时指定 DB_ENGINE
+    :param config: 测试时注入的额外配置（如 DB_ENGINE）
     """
     app = Flask(__name__)
+
+    # 根路径首页
+    @app.route('/')
+    def index():
+        return 'Welcome to Wealth App API'
 
     # 1) 初始化数据库引擎
     db_url = os.getenv(
@@ -25,19 +29,25 @@ def create_app(config: dict = None) -> Flask:
     if config:
         app.config.update(config)
 
-    # 3) 注册模块路由
+    # 3) 注册各模块 Blueprint
     from backend.modules.dashboard.controller import bp as dashboard_bp
     app.register_blueprint(dashboard_bp, url_prefix='/api/dashboard')
+
     from backend.modules.budget.controller import bp as budget_bp
     app.register_blueprint(budget_bp, url_prefix='/api/budget')
-    # TODO: 注册其他模块（transactions, goals...）
+
+    from backend.modules.transactions.controller import bp as tx_bp
+    app.register_blueprint(tx_bp, url_prefix='/api/transactions')
+
+    # TODO: 注册其他模块（goals, holdings 等）
 
     return app
 
+# 顶层 app 对象，供 Flask CLI 和 WSGI 使用
+app = create_app()
 
 if __name__ == '__main__':
-    # 直接启动支持 Codespaces 端口映射
-    app = create_app()
+    # 从环境变量读取 host/port，便于 Codespace 端口映射
     host = os.getenv('FLASK_RUN_HOST', '0.0.0.0')
     port = int(os.getenv('FLASK_RUN_PORT', 5000))
     app.run(host=host, port=port, debug=True)
