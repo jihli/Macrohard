@@ -2,5 +2,7 @@
 /Frontend/node_modules
 /Frontend/package-lock.json
 
+/Frontend_new/node_modules
+/Frontend_new/package-lock.json
 # macOS
 .DS_Store

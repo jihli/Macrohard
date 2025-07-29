@@ -1,11 +1,13 @@
-import Grid from "@mui/material/Grid";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import ReactECharts from "echarts-for-react";
-import CalendarView from "./CalendarView";
-import LineChart from "./LineChart";
+import * as React from 'react';
+import Grid from '@mui/material/Grid';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import ReactECharts from 'echarts-for-react';
+import CalendarView from './CalendarView.tsx';
+import NewComponent from './NewComponent.tsx'; // Add this import
+import Summary from './Summary.tsx'; // Add this import
 
 const sampleOption = {
   xAxis: {
@@ -83,6 +85,9 @@ function App() {
   return (
     <Box sx={{ flexGrow: 1, padding: 2 }}>
       <Grid container spacing={2}>
+        <Grid item xs={12} md={12}>
+          <Summary />
+        </Grid>
         <Grid item xs={12} md={2}>
           <Income />
         </Grid>
@@ -94,6 +99,9 @@ function App() {
         </Grid>
         <Grid item xs={12} md={12}>
           <Calendar />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <NewComponent />
         </Grid>
       </Grid>
     </Box>

@@ -1,0 +1,148 @@
+import { NextResponse } from 'next/server'
+import type { DashboardData } from '@/types'
+
+export async function GET() {
+  // 模拟仪表板数据
+  const dashboardData: DashboardData = {
+    totalBalance: 125680,
+    monthlyIncome: 15200,
+    monthlyExpenses: 8450,
+    savingsRate: 44.2,
+    budgetProgress: [
+      { category: 'food', budgeted: 1500, spent: 1200, percentage: 80 },
+      { category: 'transport', budgeted: 1000, spent: 800, percentage: 80 },
+      { category: 'shopping', budgeted: 800, spent: 600, percentage: 75 },
+      { category: 'entertainment', budgeted: 500, spent: 400, percentage: 80 },
+      { category: 'housing', budgeted: 3500, spent: 3000, percentage: 85.7 },
+      { category: 'other', budgeted: 700, spent: 450, percentage: 64.3 },
+    ],
+    recentTransactions: [
+      {
+        id: '1',
+        userId: 'user1',
+        amount: -45,
+        type: 'expense',
+        category: 'food',
+        description: '星巴克咖啡',
+        date: new Date('2024-01-15T10:30:00'),
+        tags: ['餐饮', '咖啡'],
+        location: '星巴克',
+      },
+      {
+        id: '2',
+        userId: 'user1',
+        amount: 15000,
+        type: 'income',
+        category: 'salary',
+        description: '工资收入',
+        date: new Date('2024-01-15T09:00:00'),
+        tags: ['工资', '收入'],
+      },
+      {
+        id: '3',
+        userId: 'user1',
+        amount: -8,
+        type: 'expense',
+        category: 'transport',
+        description: '地铁交通费',
+        date: new Date('2024-01-15T08:15:00'),
+        tags: ['交通', '地铁'],
+      },
+    ],
+    upcomingBills: [
+      {
+        id: '4',
+        userId: 'user1',
+        amount: -2500,
+        type: 'expense',
+        category: 'housing',
+        description: '房租',
+        date: new Date('2024-01-25T00:00:00'),
+        tags: ['住房', '房租'],
+      },
+      {
+        id: '5',
+        userId: 'user1',
+        amount: -300,
+        type: 'expense',
+        category: 'utilities',
+        description: '水电费',
+        date: new Date('2024-01-28T00:00:00'),
+        tags: ['水电', '账单'],
+      },
+    ],
+    investmentSummary: {
+      totalValue: 58000,
+      totalReturn: 16.7,
+      returnPercentage: 2.8,
+      topPerformers: [
+        {
+          id: '1',
+          userId: 'user1',
+          name: '沪深300ETF',
+          type: 'etf',
+          amount: 25000,
+          shares: 1000,
+          purchasePrice: 25,
+          currentPrice: 27.1,
+          purchaseDate: new Date('2023-06-01'),
+          riskLevel: 'medium',
+          expectedReturn: 8.5,
+        },
+        {
+          id: '2',
+          userId: 'user1',
+          name: '债券基金A',
+          type: 'mutual-fund',
+          amount: 18000,
+          shares: 9000,
+          purchasePrice: 2,
+          currentPrice: 2.08,
+          purchaseDate: new Date('2023-09-01'),
+          riskLevel: 'low',
+          expectedReturn: 4.2,
+        },
+      ],
+    },
+    goalProgress: [
+      {
+        goal: {
+          id: '1',
+          userId: 'user1',
+          name: '紧急备用金',
+          targetAmount: 50000,
+          currentAmount: 35000,
+          deadline: new Date('2024-06-30'),
+          priority: 'high',
+          type: 'emergency',
+          isActive: true,
+        },
+        percentage: 70,
+        remainingAmount: 15000,
+        daysRemaining: 166,
+      },
+      {
+        goal: {
+          id: '2',
+          userId: 'user1',
+          name: '欧洲旅行基金',
+          targetAmount: 30000,
+          currentAmount: 18000,
+          deadline: new Date('2024-09-15'),
+          priority: 'medium',
+          type: 'travel',
+          isActive: true,
+        },
+        percentage: 60,
+        remainingAmount: 12000,
+        daysRemaining: 244,
+      },
+    ],
+  }
+
+  return NextResponse.json({
+    success: true,
+    data: dashboardData,
+    message: '仪表板数据获取成功',
+  })
+} 
