@@ -1,2 +1,6 @@
-node_modules
+# Dependencies
+/Frontend/node_modules
+/Frontend/package-lock.json
+
+# macOS
 .DS_Store
