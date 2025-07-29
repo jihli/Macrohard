@@ -5,6 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import ReactECharts from 'echarts-for-react';
+import CalendarView from './CalendarView';
 
 const sampleOption = {
   xAxis: {
@@ -38,6 +39,14 @@ function Dashboard() {
     <Box>
       <Typography variant="h5" gutterBottom>Dashboard</Typography>
       <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <Card>
+            <CardContent>
+              <Typography variant="h6">Calendar</Typography>
+              <CalendarView />
+            </CardContent>
+          </Card>
+        </Grid>
         {[1, 2, 3].map((id) => (
           <Grid item xs={12} key={id}>
             <Card>
@@ -81,5 +90,6 @@ function App() {
     </Box>
   );
 }
+
 
 export default App;
