@@ -5,13 +5,15 @@ from sqlalchemy import create_engine
 
 def create_app(config: dict = None) -> Flask:
     """
-    Flask 应用工厂，返回配置好数据库引擎和路由的 Flask 实例
-    :param config: 可选配置字典，用于测试或覆盖默认设置
+    Flask 应用工厂
+    - 从环境变量 DATABASE_URL 获取数据库 URL
+    - 注册各模块 Blueprint
+
+    :param config: 覆盖默认配置，如测试时指定 DB_ENGINE
     """
     app = Flask(__name__)
 
-    # 1. 数据库连接 URL，可通过环境变量 DATABASE_URL 覆盖
-    #    示例：mysql+pymysql://root:密码@127.0.0.1/wealth_app
+    # 1) 初始化数据库引擎
     db_url = os.getenv(
         'DATABASE_URL',
         'mysql+pymysql://root:Aa11223344@127.0.0.1/wealth_app'
@@ -19,20 +21,22 @@ def create_app(config: dict = None) -> Flask:
     engine = create_engine(db_url, future=True)
     app.config['DB_ENGINE'] = engine
 
-    # 2. 外部传入配置（如测试中传入 SQLite engine）
+    # 2) 测试/运行时覆盖配置
     if config:
         app.config.update(config)
 
-    # 3. 注册各功能模块的 Blueprint
-    from modules.dashboard.controller import bp as dashboard_bp
+    # 3) 注册模块路由
+    from backend.modules.dashboard.controller import bp as dashboard_bp
     app.register_blueprint(dashboard_bp, url_prefix='/api/dashboard')
-    # TODO: 后续注册 budget, transactions, goals, investments... 模块
+    from backend.modules.budget.controller import bp as budget_bp
+    app.register_blueprint(budget_bp, url_prefix='/api/budget')
+    # TODO: 注册其他模块（transactions, goals...）
 
     return app
 
 
 if __name__ == '__main__':
-    # 运行在所有接口，方便 Docker / Codespaces 端口转发
+    # 直接启动支持 Codespaces 端口映射
     app = create_app()
     host = os.getenv('FLASK_RUN_HOST', '0.0.0.0')
     port = int(os.getenv('FLASK_RUN_PORT', 5000))
