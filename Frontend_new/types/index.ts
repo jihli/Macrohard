@@ -48,6 +48,23 @@ export interface BudgetCategory {
   spent: number;
 }
 
+// API 预算数据类型
+export interface ApiBudgetCategory {
+  category: string;
+  budgeted: number;
+  spent: number;
+  percentage: number;
+  remaining: number;
+}
+
+export interface ApiBudgetData {
+  monthlyBudget: number;
+  categories: ApiBudgetCategory[];
+  totalSpent: number;
+  totalRemaining: number;
+  overallPercentage: number;
+}
+
 // 目标管理类型
 export interface Goal {
   id: string;

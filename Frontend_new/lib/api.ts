@@ -1,3 +1,5 @@
+import { ApiBudgetData, ApiBudgetCategory } from '@/types';
+
 // const API_BASE_URL = 'http://localhost:3000/api';
 const API_BASE_URL='https://literate-space-goggles-6vp45vrpq424vwp-5000.app.github.dev/api';
 // Generic API call function
@@ -39,8 +41,8 @@ export const dashboardApi = {
 
 // Budget API
 export const budgetApi = {
-  getBudgetData: () => apiCall<any>('/budget'),
-  updateBudget: (data: any) => apiCall<any>('/budget', {
+  getBudgetData: () => apiCall<ApiBudgetData>('/budget'),
+  updateBudget: (data: { categories: ApiBudgetCategory[] }) => apiCall<any>('/budget', {
     method: 'PUT',
     body: JSON.stringify(data),
   }),
