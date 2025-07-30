@@ -1,5 +1,5 @@
-const API_BASE_URL = 'http://localhost:3000/api';
-
+// const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL='https://literate-space-goggles-6vp45vrpq424vwp-5000.app.github.dev/api';
 // Generic API call function
 async function apiCall<T>(endpoint: string, options?: RequestInit): Promise<T> {
   const url = `${API_BASE_URL}${endpoint}`;
