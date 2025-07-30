@@ -3,3 +3,5 @@ flask~=2.2.2
 pymysql
 flask-cors
 requests
+beautifulsoup4
+lxml

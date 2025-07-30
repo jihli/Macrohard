@@ -196,6 +196,8 @@ export const newsApi = {
         time: string;
         category: string;
         impact: 'positive' | 'negative' | 'neutral';
+        url?: string;
+        author?: string;
       }>;
       marketData: Array<{
         name: string;
