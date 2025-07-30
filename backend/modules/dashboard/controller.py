@@ -101,6 +101,50 @@ def get_dashboard():
         """), {"uid": user_id, "today": today}).mappings().all()
         upcoming_bills = [dict(row) for row in upcoming]
 
+
+        investments = conn.execute(text("""
+            SELECT
+                h.holding_id AS id,
+                h.user_id AS userId,
+                h.product_name AS name,
+                h.asset_type AS type,
+                h.quantity AS shares,
+                h.unit_cost AS purchasePrice,
+                hp.close_price AS currentPrice,
+                h.unit_cost * h.quantity AS totalInvested,
+                h.quantity * hp.close_price AS currentValue,
+                (hp.close_price - h.unit_cost) / h.unit_cost * 100 AS `return`,
+                'medium' AS riskLevel,
+                8.5 AS expectedReturn,
+                '2023-06-01T00:00:00Z' AS purchaseDate
+            FROM
+                holdings h
+            JOIN
+                holding_prices hp ON h.holding_id = hp.holding_id
+            WHERE
+                hp.price_date = (SELECT MAX(price_date) FROM holding_prices WHERE holding_id = h.holding_id)
+                AND h.user_id = :uid
+        """), {"uid": user_id}).mappings().all()
+       
+    investments_summary = [
+            {
+                "id": inv["id"],
+                "name": inv["name"],
+                "type": inv["type"],
+                "shares": float(inv["shares"]),
+                "purchasePrice": float(inv["purchasePrice"]),
+                "currentPrice": float(inv["currentPrice"]),
+                "totalInvested": float(inv["totalInvested"]),
+                "currentValue": float(inv["currentValue"]),
+                "return": round(inv["return"], 2),
+                "riskLevel": inv["riskLevel"],
+                "expectedReturn": float(inv["expectedReturn"]),
+                "purchaseDate": inv["purchaseDate"]
+            }
+            for inv in investments
+    ]
+
+
     # 汇总返回
     return jsonify({
         "success": True,
@@ -114,7 +158,7 @@ def get_dashboard():
             "budgetProgress": budget_progress,
             "recentTransactions": recent_transactions,
             "upcomingBills": upcoming_bills,
-            "investmentSummary": {},  # 后续扩展
+            "investmentSummary": investments_summary,  # 后续扩展
             "goalProgress": []        # 后续扩展
         },
         "message": "仪表板数据获取成功"
