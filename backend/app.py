@@ -1,8 +1,10 @@
 # backend/app.py
 
+
 import os
 from flask import Flask
 from sqlalchemy import create_engine
+from flask_cors import CORS
 
 def create_app(config: dict = None) -> Flask:
     """
@@ -10,7 +12,10 @@ def create_app(config: dict = None) -> Flask:
 
     :param config: 测试时注入的额外配置（如 DB_ENGINE）
     """
+
     app = Flask(__name__)
+    # 启用 CORS，允许所有来源
+    CORS(app, resources={r"/*": {"origins": "*"}})
 
     # 根路径首页
     @app.route('/')
