@@ -53,6 +53,9 @@ def create_app(config: dict = None) -> Flask:
     from backend.modules.goals.controller import bp as goals_bp
     app.register_blueprint(goals_bp, url_prefix='/api/goals')
 
+    from backend.modules.news.controller import bp as news_bp
+    app.register_blueprint(news_bp, url_prefix='/api/news')
+
     # TODO: 注册其他模块
 
     return app

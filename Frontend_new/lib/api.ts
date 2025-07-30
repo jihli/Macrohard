@@ -178,18 +178,37 @@ export const taxApi = {
 
 // News API
 export const newsApi = {
-  getNews: (params?: { category?: string; limit?: number }) => {
+  getNews: (params?: {
+    category?: string;
+    limit?: number;
+  }) => {
     const searchParams = new URLSearchParams();
-    if (params) {
-      Object.entries(params).forEach(([key, value]) => {
-        if (value !== undefined) {
-          searchParams.append(key, value.toString());
-        }
-      });
-    }
-    const queryString = searchParams.toString();
-    const endpoint = queryString ? `/news?${queryString}` : '/news';
-    return apiCall<any>(endpoint);
+    if (params?.category) searchParams.append('category', params.category);
+    if (params?.limit) searchParams.append('limit', params.limit.toString());
+    
+    const url = `/news${searchParams.toString() ? '?' + searchParams.toString() : ''}`;
+    return apiCall<{
+      news: Array<{
+        id: string;
+        title: string;
+        summary: string;
+        source: string;
+        time: string;
+        category: string;
+        impact: 'positive' | 'negative' | 'neutral';
+      }>;
+      marketData: Array<{
+        name: string;
+        value: string;
+        change: string;
+        trend: 'up' | 'down';
+      }>;
+      recommendations: Array<{
+        title: string;
+        description: string;
+        category: string;
+      }>;
+    }>(url);
   },
 };
 

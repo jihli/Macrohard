@@ -2,3 +2,4 @@ sqlalchemy~=2.0.41
 flask~=2.2.2
 pymysql
 flask-cors
+requests
