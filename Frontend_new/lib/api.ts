@@ -86,14 +86,50 @@ export const transactionsApi = {
 
 // Goals API
 export const goalsApi = {
-  getGoals: () => apiCall<any>('/goals'),
-  createGoal: (data: any) => apiCall<any>('/goals', {
+  getGoals: () => apiCall<{
+    goals: Array<{
+      id: string;
+      userId: string;
+      name: string;
+      targetAmount: number;
+      currentAmount: number;
+      deadline: string;
+      priority: string;
+      type: string;
+      isActive: boolean;
+      percentage: number;
+      remainingAmount: number;
+      daysRemaining: number;
+    }>;
+    statistics: {
+      totalGoals: number;
+      activeGoals: number;
+      totalTargetAmount: number;
+      totalCurrentAmount: number;
+      averageProgress: number;
+    };
+  }>('/goals'),
+  
+  createGoal: (data: {
+    name: string;
+    targetAmount: number;
+    deadline: string;
+    priority: string;
+    type: string;
+  }) => apiCall<any>('/goals', {
     method: 'POST',
     body: JSON.stringify(data),
   }),
-  updateGoalProgress: (id: string, data: any) => apiCall<any>(`/goals/${id}/progress`, {
+  
+  updateGoalProgress: (id: string, data: {
+    currentAmount: number;
+  }) => apiCall<any>(`/goals/${id}/progress`, {
     method: 'PUT',
     body: JSON.stringify(data),
+  }),
+  
+  deleteGoal: (id: string) => apiCall<any>(`/goals/${id}`, {
+    method: 'DELETE',
   }),
 };
 

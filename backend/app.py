@@ -50,7 +50,10 @@ def create_app(config: dict = None) -> Flask:
     from backend.modules.tax.controller import bp as tax_bp
     app.register_blueprint(tax_bp, url_prefix='/api/tax')
 
-    # TODO: 注册其他模块（goals 等）
+    from backend.modules.goals.controller import bp as goals_bp
+    app.register_blueprint(goals_bp, url_prefix='/api/goals')
+
+    # TODO: 注册其他模块
 
     return app
 
