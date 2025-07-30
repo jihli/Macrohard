@@ -3,7 +3,7 @@ set -euo pipefail
 
 # ———— 配置 ————
 DB_USER="root"
-DB_PWD="Aa11223344"
+DB_PWD="n3u3da!"
 DB_HOST="127.0.0.1"
 DB_PORT="3306"
 SQL_INIT_FILE="init_wealth.sql"
@@ -24,7 +24,7 @@ from sqlalchemy import create_engine, text
 
 # 从上层脚本读取
 DB_USER = "root"
-DB_PWD  = "Aa11223344"
+DB_PWD  = "n3u3da!"
 DB_HOST = "127.0.0.1"
 DB_PORT = "3306"
 DB_NAME = "wealth_app"

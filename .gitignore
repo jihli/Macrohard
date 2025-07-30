@@ -2,6 +2,10 @@
 /Frontend/node_modules
 /Frontend/package-lock.json
 
+/Backend/__pycache__
+/Database/node_modules
+
+
 /Frontend_new/node_modules
 /Frontend_new/package-lock.json
 
@@ -10,6 +14,7 @@
 /Frontend_new/.next/
 /Frontend_new/out/
 /Frontend_new/.vercel/
+
 
 # macOS
 .DS_Store
