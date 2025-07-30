@@ -77,22 +77,24 @@ export default function InvestmentSummary() {
   const totalReturn = investmentSummary.totalReturn;
   const monthlyReturn = investmentSummary.returnPercentage;
 
-  const topInvestments = investmentSummary.topPerformers.map((investment) => {
-    const currentPrice = investment.currentPrice || 0;
-    const purchasePrice = investment.purchasePrice || 0;
-    const changePercentage =
-      purchasePrice > 0
-        ? ((currentPrice - purchasePrice) / purchasePrice) * 100
-        : 0;
+  //todo
+  const topInvestments=" ";
+  // const topInvestments = investmentSummary.topPerformers.map((investment) => {
+  //   const currentPrice = investment.currentPrice || 0;
+  //   const purchasePrice = investment.purchasePrice || 0;
+  //   const changePercentage =
+  //     purchasePrice > 0
+  //       ? ((currentPrice - purchasePrice) / purchasePrice) * 100
+  //       : 0;
 
-    return {
-      name: investment.name,
-      type: investmentTypeLabels[investment.type] || investment.type,
-      value: investment.amount,
-      return: investment.expectedReturn,
-      change: `+${changePercentage.toFixed(1)}%`,
-    };
-  });
+  //   return {
+  //     name: investment.name,
+  //     type: investmentTypeLabels[investment.type] || investment.type,
+  //     value: investment.amount,
+  //     return: investment.expectedReturn,
+  //     change: `+${changePercentage.toFixed(1)}%`,
+  //   };
+  // });
 
   return (
     <div className="space-y-6">
@@ -111,9 +113,11 @@ export default function InvestmentSummary() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
           <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-4 text-white">
             <p className="text-sm opacity-90">Total Assets</p>
-            <p className="text-2xl font-bold">¥{totalValue.toLocaleString()}</p>
+            {/* todo */}
+            {/* <p className="text-2xl font-bold">¥{totalValue.toLocaleString()}</p> */}
             <p className="text-sm opacity-90">
-              +¥{monthlyReturn.toFixed(1)}k this month
+              {/* todo */}
+              {/* +¥{monthlyReturn.toFixed(1)}k this month */}
             </p>
           </div>
           <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-lg p-4 text-white">
@@ -164,7 +168,8 @@ export default function InvestmentSummary() {
             Investment Details
           </h4>
           <div className="space-y-3">
-            {topInvestments.map((investment, index) => (
+            {/* todo */}
+            {/* {topInvestments.map((investment, index) => (
               <div
                 key={investment.name}
                 className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
@@ -196,7 +201,7 @@ export default function InvestmentSummary() {
                   </div>
                 </div>
               </div>
-            ))}
+            ))} */}
           </div>
         </div>
       </div>

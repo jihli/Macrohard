@@ -160,9 +160,11 @@ export default function RecentTransactions() {
                       transaction.category}
                   </span>
                   <span className="text-xs text-gray-500">
-                    {format(transaction.date, 'MM月dd日 HH:mm', {
+                    transaction.date
+                    {/* {format(transaction.date, 'MM月dd日 HH:mm', {
                       locale: zhCN,
-                    })}
+                      todo
+                    })} */}
                   </span>
                 </div>
               </div>
