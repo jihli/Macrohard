@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import React from "react";
+import React from 'react';
 import {
   LineChart,
   Line,
@@ -9,34 +9,38 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-} from "recharts";
-import InvestmentRadarChart from "./InvestmentRadarChart";
-import { useApi } from "@/hooks/useApi";
-import { dashboardApi } from "@/lib/api";
-import type { DashboardData } from "@/types";
+} from 'recharts';
+import InvestmentRadarChart from './InvestmentRadarChart';
+import { useApi } from '@/hooks/useApi';
+import { dashboardApi } from '@/lib/api';
+import type { DashboardData } from '@/types';
 
 // Mock investment data for chart - in real implementation this would come from API
 const investmentData = [
-  { date: "1月", value: 45000, return: 5.2 },
-  { date: "2月", value: 46500, return: 3.3 },
-  { date: "3月", value: 47800, return: 2.8 },
-  { date: "4月", value: 49200, return: 2.9 },
-  { date: "5月", value: 50800, return: 3.3 },
-  { date: "6月", value: 52500, return: 3.3 },
+  { date: 'Jan', value: 45000, return: 5.2 },
+  { date: 'Feb', value: 46500, return: 3.3 },
+  { date: 'Mar', value: 47800, return: 2.8 },
+  { date: 'Apr', value: 49200, return: 2.9 },
+  { date: 'May', value: 50800, return: 3.3 },
+  { date: 'Jun', value: 52500, return: 3.3 },
 ];
 
 const investmentTypeLabels: Record<string, string> = {
-  stock: "股票型",
-  bond: "债券型",
-  etf: "ETF",
-  'mutual-fund': "基金",
-  crypto: "加密货币",
-  'real-estate': "房地产",
-  other: "其他",
+  stock: 'Stock',
+  bond: 'Bond',
+  etf: 'ETF',
+  'mutual-fund': 'Mutual Fund',
+  crypto: 'Cryptocurrency',
+  'real-estate': 'Real Estate',
+  other: 'Other',
 };
 
 export default function InvestmentSummary() {
-  const { data: dashboardData, loading, error } = useApi(dashboardApi.getDashboardData);
+  const {
+    data: dashboardData,
+    loading,
+    error,
+  } = useApi(dashboardApi.getDashboardData);
 
   if (loading) {
     return (
@@ -73,11 +77,14 @@ export default function InvestmentSummary() {
   const totalReturn = investmentSummary.totalReturn;
   const monthlyReturn = investmentSummary.returnPercentage;
 
-  const topInvestments = investmentSummary.topPerformers.map(investment => {
+  const topInvestments = investmentSummary.topPerformers.map((investment) => {
     const currentPrice = investment.currentPrice || 0;
     const purchasePrice = investment.purchasePrice || 0;
-    const changePercentage = purchasePrice > 0 ? ((currentPrice - purchasePrice) / purchasePrice * 100) : 0;
-    
+    const changePercentage =
+      purchasePrice > 0
+        ? ((currentPrice - purchasePrice) / purchasePrice) * 100
+        : 0;
+
     return {
       name: investment.name,
       type: investmentTypeLabels[investment.type] || investment.type,
@@ -89,39 +96,43 @@ export default function InvestmentSummary() {
 
   return (
     <div className="space-y-6">
-      {/* 主要投资概览 */}
+      {/* Investment Overview */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-gray-900">投资组合</h3>
+          <h3 className="text-lg font-semibold text-gray-900">
+            Investment Portfolio
+          </h3>
           <button className="text-sm text-blue-600 hover:text-blue-700 font-medium">
-            管理投资
+            Manage Investments
           </button>
         </div>
 
-        {/* 投资概览 */}
+        {/* Investment Overview */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
           <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-4 text-white">
-            <p className="text-sm opacity-90">总资产</p>
+            <p className="text-sm opacity-90">Total Assets</p>
             <p className="text-2xl font-bold">¥{totalValue.toLocaleString()}</p>
             <p className="text-sm opacity-90">
-              +¥{monthlyReturn.toFixed(1)}k 本月
+              +¥{monthlyReturn.toFixed(1)}k this month
             </p>
           </div>
           <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-lg p-4 text-white">
-            <p className="text-sm opacity-90">总收益</p>
+            <p className="text-sm opacity-90">Total Return</p>
             <p className="text-2xl font-bold">+{totalReturn}%</p>
-            <p className="text-sm opacity-90">+¥8.2k 本年</p>
+            <p className="text-sm opacity-90">+¥8.2k this year</p>
           </div>
           <div className="bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg p-4 text-white">
-            <p className="text-sm opacity-90">风险评分</p>
-            <p className="text-2xl font-bold">中等</p>
-            <p className="text-sm opacity-90">平衡型配置</p>
+            <p className="text-sm opacity-90">Risk Score</p>
+            <p className="text-2xl font-bold">Medium</p>
+            <p className="text-sm opacity-90">Balanced allocation</p>
           </div>
         </div>
 
-        {/* 收益趋势图 */}
+        {/* Return Trend */}
         <div className="mb-6">
-          <h4 className="text-sm font-medium text-gray-700 mb-4">收益趋势</h4>
+          <h4 className="text-sm font-medium text-gray-700 mb-4">
+            Return Trend
+          </h4>
           <div className="h-48">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={investmentData}>
@@ -131,7 +142,7 @@ export default function InvestmentSummary() {
                 <Tooltip
                   formatter={(value: number) => [
                     `¥${value.toLocaleString()}`,
-                    "资产价值",
+                    'Asset Value',
                   ]}
                   labelFormatter={(label) => `${label}`}
                 />
@@ -140,16 +151,18 @@ export default function InvestmentSummary() {
                   dataKey="value"
                   stroke="#3B82F6"
                   strokeWidth={2}
-                  dot={{ fill: "#3B82F6", strokeWidth: 2, r: 4 }}
+                  dot={{ fill: '#3B82F6', strokeWidth: 2, r: 4 }}
                 />
               </LineChart>
             </ResponsiveContainer>
           </div>
         </div>
 
-        {/* 投资明细 */}
+        {/* Investment Details */}
         <div>
-          <h4 className="text-sm font-medium text-gray-700 mb-4">投资明细</h4>
+          <h4 className="text-sm font-medium text-gray-700 mb-4">
+            Investment Details
+          </h4>
           <div className="space-y-3">
             {topInvestments.map((investment, index) => (
               <div
@@ -188,17 +201,17 @@ export default function InvestmentSummary() {
         </div>
       </div>
 
-      {/* 雷达图 - 资产配置对比 */}
+      {/* Radar Chart - Asset Allocation Comparison */}
       <InvestmentRadarChart
         riskLevel="medium"
         currentAllocation={[
-          { type: "股票", percentage: 43 },
-          { type: "债券", percentage: 31 },
-          { type: "ETF", percentage: 15 },
-          { type: "基金", percentage: 11 },
-          { type: "加密货币", percentage: 0 },
-          { type: "房地产", percentage: 0 },
-          { type: "其他", percentage: 0 },
+          { type: 'Stocks', percentage: 43 },
+          { type: 'Bonds', percentage: 31 },
+          { type: 'ETFs', percentage: 15 },
+          { type: 'Mutual Funds', percentage: 11 },
+          { type: 'Cryptocurrencies', percentage: 0 },
+          { type: 'Real Estate', percentage: 0 },
+          { type: 'Other', percentage: 0 },
         ]}
       />
     </div>

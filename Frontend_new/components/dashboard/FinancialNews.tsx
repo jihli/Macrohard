@@ -1,35 +1,39 @@
-"use client";
+'use client';
 
-import React from "react";
-import { useApi } from "@/hooks/useApi";
-import { newsApi } from "@/lib/api";
+import React from 'react';
+import { useApi } from '@/hooks/useApi';
+import { newsApi } from '@/lib/api';
 
 const categoryColors = {
-  market: "bg-blue-100 text-blue-800",
-  stocks: "bg-green-100 text-green-800",
-  economy: "bg-purple-100 text-purple-800",
-  crypto: "bg-orange-100 text-orange-800",
-  "real-estate": "bg-indigo-100 text-indigo-800",
-  bonds: "bg-gray-100 text-gray-800",
+  market: 'bg-blue-100 text-blue-800',
+  stocks: 'bg-green-100 text-green-800',
+  economy: 'bg-purple-100 text-purple-800',
+  crypto: 'bg-orange-100 text-orange-800',
+  'real-estate': 'bg-indigo-100 text-indigo-800',
+  bonds: 'bg-gray-100 text-gray-800',
 };
 
 const sentimentColors = {
-  positive: "text-green-600",
-  negative: "text-red-600",
-  neutral: "text-gray-600",
+  positive: 'text-green-600',
+  negative: 'text-red-600',
+  neutral: 'text-gray-600',
 };
 
 const categoryLabels: Record<string, string> = {
-  market: "Market",
-  stocks: "Stocks",
-  economy: "Economy",
-  crypto: "Cryptocurrency",
-  "real-estate": "Real Estate",
-  bonds: "Bonds",
+  market: 'Market',
+  stocks: 'Stocks',
+  economy: 'Economy',
+  crypto: 'Cryptocurrency',
+  'real-estate': 'Real Estate',
+  bonds: 'Bonds',
 };
 
 export default function FinancialNews() {
-  const { data: newsData, loading, error } = useApi(() => newsApi.getNews({ limit: 4 }));
+  const {
+    data: newsData,
+    loading,
+    error,
+  } = useApi(() => newsApi.getNews({ limit: 4 }));
 
   if (loading) {
     return (
@@ -64,9 +68,9 @@ export default function FinancialNews() {
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-lg font-semibold text-gray-900">金融新闻</h3>
+        <h3 className="text-lg font-semibold text-gray-900">Financial News</h3>
         <button className="text-sm text-blue-600 hover:text-blue-700 font-medium">
-          更多新闻
+          More News
         </button>
       </div>
 
@@ -87,10 +91,14 @@ export default function FinancialNews() {
                 <div className="flex items-center space-x-2">
                   <span
                     className={`px-2 py-1 text-xs font-medium rounded-full ${
-                      categoryColors[item.category as keyof typeof categoryColors] || "bg-gray-100 text-gray-800"
+                      categoryColors[
+                        item.category as keyof typeof categoryColors
+                      ] || 'bg-gray-100 text-gray-800'
                     }`}
                   >
-                    {categoryLabels[item.category as keyof typeof categoryLabels] || item.category}
+                    {categoryLabels[
+                      item.category as keyof typeof categoryLabels
+                    ] || item.category}
                   </span>
                   <span className="text-xs text-gray-500">{item.source}</span>
                   <span className="text-xs text-gray-500">
@@ -101,13 +109,15 @@ export default function FinancialNews() {
               <div className="ml-3">
                 <span
                   className={`text-xs font-medium ${
-                    sentimentColors[item.sentiment as keyof typeof sentimentColors] || "text-gray-600"
+                    sentimentColors[
+                      item.sentiment as keyof typeof sentimentColors
+                    ] || 'text-gray-600'
                   }`}
                 >
-                  {item.sentiment === "positive" && "📈"}
-                  {item.sentiment === "negative" && "📉"}
-                  {item.sentiment === "neutral" && "➡️"}
-                  {!item.sentiment && "➡️"}
+                  {item.sentiment === 'positive' && '📈'}
+                  {item.sentiment === 'negative' && '📉'}
+                  {item.sentiment === 'neutral' && '➡️'}
+                  {!item.sentiment && '➡️'}
                 </span>
               </div>
             </div>
@@ -117,10 +127,10 @@ export default function FinancialNews() {
               </button>
               <div className="flex space-x-2">
                 <button className="text-xs text-gray-500 hover:text-gray-700">
-                  收藏
+                  Bookmark
                 </button>
                 <button className="text-xs text-gray-500 hover:text-gray-700">
-                  分享
+                  Share
                 </button>
               </div>
             </div>
@@ -135,11 +145,11 @@ export default function FinancialNews() {
         </h4>
         <div className="flex flex-wrap gap-2">
           {[
-            "Market Trends",
-            "Stock Analysis",
-            "Economic Policies",
-            "Real Estate",
-            "Investment",
+            'Market Trends',
+            'Stock Analysis',
+            'Economic Policies',
+            'Real Estate',
+            'Investment',
           ].map((topic) => (
             <button
               key={topic}

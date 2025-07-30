@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface UnifiedWelcomeCardProps {
   userName?: string;
@@ -14,8 +14,8 @@ interface UnifiedWelcomeCardProps {
 }
 
 const UnifiedWelcomeCard: React.FC<UnifiedWelcomeCardProps> = ({
-  userName = "张小明",
-  currentDate = "2025年7月29日星期二",
+  userName = 'Xiaoming Zhang',
+  currentDate = 'Tuesday, July 29, 2025',
   totalAssets = 125680,
   assetsChange = 12.5,
   monthlyIncome = 15200,
@@ -30,12 +30,12 @@ const UnifiedWelcomeCard: React.FC<UnifiedWelcomeCardProps> = ({
   };
 
   const formatPercentage = (value: number) => {
-    const sign = value >= 0 ? "+" : "";
+    const sign = value >= 0 ? '+' : '';
     return `${sign}${value}%`;
   };
 
   const getChangeColor = (change: number) => {
-    return change >= 0 ? "text-green-600" : "text-red-600";
+    return change >= 0 ? 'text-green-600' : 'text-red-600';
   };
 
   return (
@@ -43,54 +43,56 @@ const UnifiedWelcomeCard: React.FC<UnifiedWelcomeCardProps> = ({
       {/* Welcome Header */}
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-gray-900 mb-1">
-          欢迎回来，{userName}！
+          Welcome back, {userName}!
         </h1>
-        <p className="text-gray-600">今天是 {currentDate}</p>
+        <p className="text-gray-600">Today is {currentDate}</p>
       </div>
 
       {/* Financial Metrics Grid */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Total Assets */}
         <div className="space-y-2">
-          <h3 className="text-sm font-medium text-gray-600">总资产</h3>
+          <h3 className="text-sm font-medium text-gray-600">Total Assets</h3>
           <p className="text-2xl font-bold text-gray-900">
             {formatCurrency(totalAssets)}
           </p>
           <p className={`text-sm font-medium ${getChangeColor(assetsChange)}`}>
-            {formatPercentage(assetsChange)} vs 上月
+            {formatPercentage(assetsChange)} vs Last Month
           </p>
         </div>
 
         {/* Monthly Income */}
         <div className="space-y-2">
-          <h3 className="text-sm font-medium text-gray-600">本月收入</h3>
+          <h3 className="text-sm font-medium text-gray-600">Monthly Income</h3>
           <p className="text-2xl font-bold text-gray-900">
             {formatCurrency(monthlyIncome)}
           </p>
           <p className={`text-sm font-medium ${getChangeColor(incomeChange)}`}>
-            {formatPercentage(incomeChange)} vs 上月
+            {formatPercentage(incomeChange)} vs Last Month
           </p>
         </div>
 
         {/* Monthly Expenses */}
         <div className="space-y-2">
-          <h3 className="text-sm font-medium text-gray-600">本月支出</h3>
+          <h3 className="text-sm font-medium text-gray-600">
+            Monthly Expenses
+          </h3>
           <p className="text-2xl font-bold text-gray-900">
             {formatCurrency(monthlyExpenses)}
           </p>
           <p
             className={`text-sm font-medium ${getChangeColor(expensesChange)}`}
           >
-            {formatPercentage(expensesChange)} vs 上月
+            {formatPercentage(expensesChange)} vs Last Month
           </p>
         </div>
 
         {/* Savings Rate */}
         <div className="space-y-2">
-          <h3 className="text-sm font-medium text-gray-600">储蓄率</h3>
+          <h3 className="text-sm font-medium text-gray-600">Savings Rate</h3>
           <p className="text-2xl font-bold text-gray-900">{savingsRate}%</p>
           <p className={`text-sm font-medium ${getChangeColor(savingsChange)}`}>
-            {formatPercentage(savingsChange)} vs 上月
+            {formatPercentage(savingsChange)} vs Last Month
           </p>
         </div>
       </div>
