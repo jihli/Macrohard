@@ -44,7 +44,13 @@ def create_app(config: dict = None) -> Flask:
     from backend.modules.transactions.controller import bp as tx_bp
     app.register_blueprint(tx_bp, url_prefix='/api/transactions')
 
-    # TODO: 注册其他模块（goals, holdings 等）
+    from backend.modules.investments.controller import bp as investments_bp
+    app.register_blueprint(investments_bp, url_prefix='/api/investments')
+
+    from backend.modules.tax.controller import bp as tax_bp
+    app.register_blueprint(tax_bp, url_prefix='/api/tax')
+
+    # TODO: 注册其他模块（goals 等）
 
     return app
 
