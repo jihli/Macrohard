@@ -100,7 +100,16 @@ export const goalsApi = {
 // Investments API
 export const investmentsApi = {
   getInvestments: () => apiCall<any>('/investments'),
-  createInvestment: (data: any) => apiCall<any>('/investments', {
+  createInvestment: (data: {
+    name: string;
+    type: string;
+    amount: number;
+    shares: number;
+    purchasePrice: number;
+    purchaseDate?: string;
+    riskLevel?: string;
+    expectedReturn?: number;
+  }) => apiCall<any>('/investments', {
     method: 'POST',
     body: JSON.stringify(data),
   }),
@@ -108,7 +117,25 @@ export const investmentsApi = {
 
 // Tax API
 export const taxApi = {
-  getTaxData: () => apiCall<any>('/tax'),
+  getTaxData: () => apiCall<{
+    annualIncome: number;
+    estimatedTaxRate: number;
+    paidTax: number;
+    estimatedTax: number;
+    difference: number;
+    status: string;
+    deductions: Array<{
+      name: string;
+      amount: number;
+      status: string;
+    }>;
+    recommendations: Array<{
+      title: string;
+      description: string;
+      savings: number;
+      priority: string;
+    }>;
+  }>('/tax'),
 };
 
 // News API
