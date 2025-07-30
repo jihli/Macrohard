@@ -28,9 +28,9 @@ export default function BudgetPage() {
       
       // 刷新数据
       refetch();
-      alert('预算更新成功！');
+      alert('Budget updated successfully!');
     } catch (error) {
-      alert('预算更新失败，请重试');
+      alert('Budget update failed, please try again');
     }
   };
 
@@ -43,7 +43,7 @@ export default function BudgetPage() {
           <main className="flex-1 overflow-y-auto p-6">
             <div className="max-w-7xl mx-auto">
               <div className="flex items-center justify-center h-64">
-                <div className="text-lg text-gray-600">加载中...</div>
+                <div className="text-lg text-gray-600">Loading...</div>
               </div>
             </div>
           </main>
@@ -61,7 +61,7 @@ export default function BudgetPage() {
           <main className="flex-1 overflow-y-auto p-6">
             <div className="max-w-7xl mx-auto">
               <div className="flex items-center justify-center h-64">
-                <div className="text-lg text-red-600">加载失败: {error}</div>
+                <div className="text-lg text-red-600">Loading failed: {error}</div>
               </div>
             </div>
           </main>
@@ -78,14 +78,14 @@ export default function BudgetPage() {
         <main className="flex-1 overflow-y-auto p-6">
           <div className="max-w-7xl mx-auto">
             <div className="mb-8">
-              <h1 className="text-3xl font-bold text-gray-900">预算管理</h1>
-              <p className="text-gray-600 mt-2">管理您的月度预算和支出分类</p>
+              <h1 className="text-3xl font-bold text-gray-900">Budget Management</h1>
+              <p className="text-gray-600 mt-2">Manage your monthly budget and expense categories</p>
             </div>
             
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* 预算概览 */}
               <div className="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-4">预算概览</h2>
+                <h2 className="text-xl font-semibold text-gray-900 mb-4">Budget Overview</h2>
                 <div className="space-y-4">
                   {budgetData?.categories?.map((item) => (
                     <div key={item.category} className="flex items-center justify-between">
@@ -113,32 +113,32 @@ export default function BudgetPage() {
 
               {/* 预算设置 */}
               <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-4">预算设置</h2>
+                <h2 className="text-xl font-semibold text-gray-900 mb-4">Budget Settings</h2>
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      月度总预算
+                      Monthly Budget Total
                     </label>
                     <input
                       type="number"
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      placeholder="输入预算金额"
+                      placeholder="Enter budget amount"
                       value={newBudget || budgetData?.monthlyBudget?.toString() || ''}
                       onChange={(e) => setNewBudget(e.target.value)}
                     />
                   </div>
                   {budgetData && (
                     <div className="text-sm text-gray-600 space-y-1">
-                      <div>总支出: ¥{budgetData.totalSpent?.toFixed(2)}</div>
-                      <div>剩余预算: ¥{budgetData.totalRemaining?.toFixed(2)}</div>
-                      <div>完成度: {budgetData.overallPercentage?.toFixed(1)}%</div>
+                      <div>Total Spent: ¥{budgetData.totalSpent?.toFixed(2)}</div>
+                      <div>Remaining Budget: ¥{budgetData.totalRemaining?.toFixed(2)}</div>
+                      <div>Progress: {budgetData.overallPercentage?.toFixed(1)}%</div>
                     </div>
                   )}
                   <button 
                     onClick={handleUpdateBudget}
                     className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
                   >
-                    更新预算
+                    Update Budget
                   </button>
                 </div>
               </div>

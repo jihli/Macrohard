@@ -125,8 +125,8 @@ export default function TransactionsPage() {
         <main className="flex-1 overflow-y-auto p-6">
           <div className="max-w-7xl mx-auto">
             <div className="mb-8">
-              <h1 className="text-3xl font-bold text-gray-900">消费跟踪</h1>
-              <p className="text-gray-600 mt-2">查看和管理您的所有交易记录</p>
+              <h1 className="text-3xl font-bold text-gray-900">Transaction Tracking</h1>
+              <p className="text-gray-600 mt-2">View and manage all your transaction records</p>
             </div>
             
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

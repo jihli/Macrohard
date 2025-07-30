@@ -87,11 +87,11 @@ export default function AIRecommendations() {
     ...(recommendationsData.budgetRecommendations || []).map((rec: any) => ({
       id: `budget-${rec.category}`,
       type: 'budget' as const,
-      title: `优化${rec.category}支出`,
+      title: `Optimize ${rec.category} Expenses`,
       description: rec.reason,
       priority: 'medium' as const,
       estimatedImpact: rec.savings,
-      actionItems: ['制定预算计划', '寻找优惠方式'],
+      actionItems: ['Create Budget Plan', 'Find Better Deals'],
       icon: '🎯',
     })),
   ];

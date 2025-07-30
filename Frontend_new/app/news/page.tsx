@@ -13,51 +13,51 @@ export default function NewsPage() {
         <main className="flex-1 overflow-y-auto p-6">
           <div className="max-w-7xl mx-auto">
             <div className="mb-8">
-              <h1 className="text-3xl font-bold text-gray-900">金融新闻</h1>
-              <p className="text-gray-600 mt-2">获取最新的金融市场动态和投资机会</p>
+              <h1 className="text-3xl font-bold text-gray-900">Financial News</h1>
+              <p className="text-gray-600 mt-2">Get the latest financial market updates and investment opportunities</p>
             </div>
             
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* 热门新闻 */}
               <div className="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-6">热门新闻</h2>
+                <h2 className="text-xl font-semibold text-gray-900 mb-6">Hot News</h2>
                 
                 <div className="space-y-6">
                   {[
                     {
                       id: '1',
-                      title: '央行宣布降息0.25个百分点，释放流动性信号',
-                      summary: '中国人民银行今日宣布下调金融机构存款准备金率0.25个百分点，预计释放长期资金约5000亿元...',
-                      source: '财经网',
-                      time: '2小时前',
-                      category: '货币政策',
+                      title: 'Central Bank Announces 0.25% Interest Rate Cut, Signaling Liquidity Release',
+                      summary: 'The People\'s Bank of China announced today a reduction in the reserve requirement ratio by 0.25 percentage points, expected to release approximately 500 billion yuan in long-term funds...',
+                      source: 'Finance Network',
+                      time: '2 hours ago',
+                      category: 'Monetary Policy',
                       impact: 'positive',
                     },
                     {
                       id: '2',
-                      title: 'A股三大指数集体上涨，科技股领涨',
-                      summary: '今日A股市场表现强劲，三大指数集体上涨。其中，创业板指涨幅超过2%，科技股表现突出...',
-                      source: '证券时报',
-                      time: '4小时前',
-                      category: '股市动态',
+                      title: 'A-Share Major Indices Rise Collectively, Tech Stocks Lead Gains',
+                      summary: 'Today\'s A-share market performed strongly, with all three major indices rising collectively. The Growth Enterprise Market Index rose by more than 2%, with tech stocks performing prominently...',
+                      source: 'Securities Times',
+                      time: '4 hours ago',
+                      category: 'Stock Market',
                       impact: 'positive',
                     },
                     {
                       id: '3',
-                      title: '房地产调控政策持续，一线城市房价稳中有降',
-                      summary: '最新数据显示，一线城市房价呈现稳中有降趋势，调控政策效果逐步显现...',
-                      source: '经济参考报',
-                      time: '6小时前',
-                      category: '房地产',
+                      title: 'Real Estate Control Policies Continue, First-Tier City Prices Stable with Slight Decline',
+                      summary: 'Latest data shows that first-tier city real estate prices are showing a stable trend with slight declines, and the effects of control policies are gradually becoming apparent...',
+                      source: 'Economic Reference',
+                      time: '6 hours ago',
+                      category: 'Real Estate',
                       impact: 'neutral',
                     },
                     {
                       id: '4',
-                      title: '新能源汽车销量创新高，产业链投资机会显现',
-                      summary: '今年前11个月，新能源汽车销量同比增长35%，产业链相关投资机会值得关注...',
-                      source: '第一财经',
-                      time: '8小时前',
-                      category: '新能源',
+                      title: 'New Energy Vehicle Sales Hit Record High, Supply Chain Investment Opportunities Emerge',
+                      summary: 'In the first 11 months of this year, new energy vehicle sales increased by 35% year-on-year, and supply chain-related investment opportunities are worth attention...',
+                      source: 'Yicai',
+                      time: '8 hours ago',
+                      category: 'New Energy',
                       impact: 'positive',
                     },
                   ].map((news) => (
@@ -77,9 +77,9 @@ export default function NewsPage() {
                       <p className="text-sm text-gray-600 mb-3">{news.summary}</p>
                       
                       <div className="flex justify-between items-center">
-                        <span className="text-xs text-gray-500">来源: {news.source}</span>
+                        <span className="text-xs text-gray-500">Source: {news.source}</span>
                         <button className="text-blue-600 text-sm hover:text-blue-700">
-                          阅读全文
+                          Read More
                         </button>
                       </div>
                     </div>
@@ -89,16 +89,16 @@ export default function NewsPage() {
 
               {/* 市场数据 */}
               <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-6">市场数据</h2>
+                <h2 className="text-xl font-semibold text-gray-900 mb-6">Market Data</h2>
                 
                 <div className="space-y-4">
                   {[
-                    { name: '上证指数', value: '3,245.67', change: '+1.2%', trend: 'up' },
-                    { name: '深证成指', value: '10,234.56', change: '+0.8%', trend: 'up' },
-                    { name: '创业板指', value: '2,156.78', change: '+2.1%', trend: 'up' },
-                    { name: '美元指数', value: '102.45', change: '-0.3%', trend: 'down' },
-                    { name: '黄金价格', value: '1,987.50', change: '+0.5%', trend: 'up' },
-                    { name: '原油价格', value: '78.90', change: '-1.2%', trend: 'down' },
+                    { name: 'Shanghai Composite', value: '3,245.67', change: '+1.2%', trend: 'up' },
+                    { name: 'Shenzhen Component', value: '10,234.56', change: '+0.8%', trend: 'up' },
+                    { name: 'ChiNext Index', value: '2,156.78', change: '+2.1%', trend: 'up' },
+                    { name: 'US Dollar Index', value: '102.45', change: '-0.3%', trend: 'down' },
+                    { name: 'Gold Price', value: '1,987.50', change: '+0.5%', trend: 'up' },
+                    { name: 'Oil Price', value: '78.90', change: '-1.2%', trend: 'down' },
                   ].map((item) => (
                     <div key={item.name} className="flex justify-between items-center p-3 border border-gray-100 rounded-lg">
                       <div>
@@ -115,19 +115,19 @@ export default function NewsPage() {
                 </div>
                 
                 <div className="mt-6">
-                  <h3 className="font-semibold text-gray-900 mb-3">投资建议</h3>
+                  <h3 className="font-semibold text-gray-900 mb-3">Investment Advice</h3>
                   <div className="space-y-3">
                     <div className="p-3 bg-blue-50 rounded-lg">
-                      <p className="text-sm text-gray-900 font-medium">关注科技股</p>
-                      <p className="text-xs text-gray-600">政策支持力度加大，建议关注人工智能、芯片等板块</p>
+                      <p className="text-sm text-gray-900 font-medium">Focus on Tech Stocks</p>
+                      <p className="text-xs text-gray-600">Policy support is increasing, recommend focusing on AI, chip and other sectors</p>
                     </div>
                     <div className="p-3 bg-green-50 rounded-lg">
-                      <p className="text-sm text-gray-900 font-medium">债券配置</p>
-                      <p className="text-xs text-gray-600">降息预期下，建议适当增加债券配置比例</p>
+                      <p className="text-sm text-gray-900 font-medium">Bond Allocation</p>
+                      <p className="text-xs text-gray-600">Under interest rate cut expectations, recommend moderately increasing bond allocation ratio</p>
                     </div>
                     <div className="p-3 bg-purple-50 rounded-lg">
-                      <p className="text-sm text-gray-900 font-medium">黄金投资</p>
-                      <p className="text-xs text-gray-600">避险情绪升温，黄金配置价值凸显</p>
+                      <p className="text-sm text-gray-900 font-medium">Gold Investment</p>
+                      <p className="text-xs text-gray-600">Risk-averse sentiment is rising, highlighting the allocation value of gold</p>
                     </div>
                   </div>
                 </div>

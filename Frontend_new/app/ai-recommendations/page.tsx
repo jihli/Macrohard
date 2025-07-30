@@ -13,40 +13,40 @@ export default function AIRecommendationsPage() {
         <main className="flex-1 overflow-y-auto p-6">
           <div className="max-w-7xl mx-auto">
             <div className="mb-8">
-              <h1 className="text-3xl font-bold text-gray-900">AI推荐</h1>
-              <p className="text-gray-600 mt-2">基于您的财务状况提供个性化建议</p>
+              <h1 className="text-3xl font-bold text-gray-900">AI Recommendations</h1>
+              <p className="text-gray-600 mt-2">Personalized advice based on your financial situation</p>
             </div>
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* 投资建议 */}
               <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-6">投资组合建议</h2>
+                <h2 className="text-xl font-semibold text-gray-900 mb-6">Investment Portfolio Suggestions</h2>
                 
                 <div className="space-y-4">
                   {[
                     {
                       id: '1',
-                      title: '增加科技股配置',
-                      description: '基于您的风险承受能力和市场趋势，建议将科技股配置比例从15%提升至25%',
+                      title: 'Increase Tech Stock Allocation',
+                      description: 'Based on your risk tolerance and market trends, recommend increasing tech stock allocation from 15% to 25%',
                       confidence: 85,
                       impact: 'positive',
-                      action: '立即调整',
+                      action: 'Adjust Now',
                     },
                     {
                       id: '2',
-                      title: '债券基金优化',
-                      description: '当前债券基金收益率偏低，建议考虑转换至收益更高的债券基金产品',
+                      title: 'Bond Fund Optimization',
+                      description: 'Current bond fund yields are low, consider switching to higher-yield bond fund products',
                       confidence: 78,
                       impact: 'positive',
-                      action: '查看详情',
+                      action: 'View Details',
                     },
                     {
                       id: '3',
-                      title: '黄金配置建议',
-                      description: '考虑到全球经济不确定性，建议增加5%的黄金配置作为避险资产',
+                      title: 'Gold Allocation Recommendation',
+                      description: 'Given global economic uncertainty, recommend adding 5% gold allocation as a hedge asset',
                       confidence: 72,
                       impact: 'neutral',
-                      action: '了解更多',
+                      action: 'Learn More',
                     },
                   ].map((recommendation) => (
                     <div key={recommendation.id} className="border border-gray-200 rounded-lg p-4">
@@ -57,7 +57,7 @@ export default function AIRecommendationsPage() {
                           recommendation.impact === 'negative' ? 'bg-red-100 text-red-800' :
                           'bg-yellow-100 text-yellow-800'
                         }`}>
-                          {recommendation.confidence}% 置信度
+                          {recommendation.confidence}% Confidence
                         </span>
                       </div>
                       
@@ -81,52 +81,52 @@ export default function AIRecommendationsPage() {
 
               {/* 预算优化 */}
               <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-6">预算优化建议</h2>
+                <h2 className="text-xl font-semibold text-gray-900 mb-6">Budget Optimization Suggestions</h2>
                 
                 <div className="space-y-4">
                   {[
                     {
                       id: '1',
-                      category: '餐饮支出',
+                      category: 'Dining Expenses',
                       current: 1200,
                       suggested: 1000,
                       savings: 200,
-                      reason: '餐饮支出超出预算20%，建议减少外卖频率',
+                      reason: 'Dining expenses exceed budget by 20%, recommend reducing takeout frequency',
                     },
                     {
                       id: '2',
-                      category: '娱乐支出',
+                      category: 'Entertainment Expenses',
                       current: 400,
                       suggested: 350,
                       savings: 50,
-                      reason: '娱乐支出合理，可适当增加储蓄',
+                      reason: 'Entertainment expenses are reasonable, can moderately increase savings',
                     },
                     {
                       id: '3',
-                      category: '交通支出',
+                      category: 'Transportation Expenses',
                       current: 800,
                       suggested: 750,
                       savings: 50,
-                      reason: '考虑拼车或公共交通，可节省交通费用',
+                      reason: 'Consider carpooling or public transportation to save on transportation costs',
                     },
                   ].map((item) => (
                     <div key={item.id} className="border border-gray-200 rounded-lg p-4">
                       <div className="flex justify-between items-center mb-2">
                         <h3 className="font-semibold text-gray-900">{item.category}</h3>
                         <span className="text-sm text-green-600 font-medium">
-                          可节省 ¥{item.savings}
+                          Can save ¥{item.savings}
                         </span>
                       </div>
                       
                       <div className="flex justify-between text-sm text-gray-600 mb-2">
-                        <span>当前: ¥{item.current}</span>
-                        <span>建议: ¥{item.suggested}</span>
+                        <span>Current: ¥{item.current}</span>
+                        <span>Suggested: ¥{item.suggested}</span>
                       </div>
                       
                       <p className="text-xs text-gray-500 mb-3">{item.reason}</p>
                       
                       <button className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors text-sm">
-                        应用建议
+                        Apply Suggestion
                       </button>
                     </div>
                   ))}
@@ -136,7 +136,7 @@ export default function AIRecommendationsPage() {
 
             {/* 智能提醒 */}
             <div className="mt-6 bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-6">智能提醒</h2>
+              <h2 className="text-xl font-semibold text-gray-900 mb-6">Smart Reminders</h2>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="p-4 bg-blue-50 rounded-lg">
@@ -144,10 +144,10 @@ export default function AIRecommendationsPage() {
                     <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
                       <span className="text-blue-600 text-sm">📅</span>
                     </div>
-                    <h3 className="font-semibold text-gray-900">账单提醒</h3>
+                    <h3 className="font-semibold text-gray-900">Bill Reminder</h3>
                   </div>
                   <p className="text-sm text-gray-600">
-                    您的房租账单将在3天后到期，请及时支付 ¥2,500
+                    Your rent bill is due in 3 days, please pay ¥2,500 on time
                   </p>
                 </div>
                 
@@ -156,10 +156,10 @@ export default function AIRecommendationsPage() {
                     <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3">
                       <span className="text-green-600 text-sm">🎯</span>
                     </div>
-                    <h3 className="font-semibold text-gray-900">目标提醒</h3>
+                    <h3 className="font-semibold text-gray-900">Goal Reminder</h3>
                   </div>
                   <p className="text-sm text-gray-600">
-                    距离"欧洲旅行基金"目标还有3个月，建议增加储蓄
+                    3 months remaining for "Europe Travel Fund" goal, recommend increasing savings
                   </p>
                 </div>
                 
@@ -168,10 +168,10 @@ export default function AIRecommendationsPage() {
                     <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center mr-3">
                       <span className="text-purple-600 text-sm">📈</span>
                     </div>
-                    <h3 className="font-semibold text-gray-900">投资机会</h3>
+                    <h3 className="font-semibold text-gray-900">Investment Opportunity</h3>
                   </div>
                   <p className="text-sm text-gray-600">
-                    检测到新的投资机会，建议关注新能源板块
+                    New investment opportunity detected, recommend following new energy sector
                   </p>
                 </div>
               </div>

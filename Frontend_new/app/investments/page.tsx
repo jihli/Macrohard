@@ -14,20 +14,20 @@ export default function InvestmentsPage() {
         <main className="flex-1 overflow-y-auto p-6">
           <div className="max-w-7xl mx-auto">
             <div className="mb-8">
-              <h1 className="text-3xl font-bold text-gray-900">投资组合</h1>
-              <p className="text-gray-600 mt-2">管理您的投资组合和资产配置</p>
+              <h1 className="text-3xl font-bold text-gray-900">Investment Portfolio</h1>
+              <p className="text-gray-600 mt-2">Manage your investment portfolio and asset allocation</p>
             </div>
             
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* 投资概览 */}
               <div className="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-6">投资概览</h2>
+                <h2 className="text-xl font-semibold text-gray-900 mb-6">Investment Overview</h2>
                 
                 <div className="space-y-4">
                   {[
                     {
                       id: '1',
-                      name: '沪深300ETF',
+                      name: 'CSI 300 ETF',
                       type: 'ETF',
                       amount: 25000,
                       shares: 1000,
@@ -38,8 +38,8 @@ export default function InvestmentsPage() {
                     },
                     {
                       id: '2',
-                      name: '债券基金A',
-                      type: '基金',
+                      name: 'Bond Fund A',
+                      type: 'Fund',
                       amount: 18000,
                       shares: 9000,
                       currentPrice: 2.08,
@@ -49,8 +49,8 @@ export default function InvestmentsPage() {
                     },
                     {
                       id: '3',
-                      name: '科技股组合',
-                      type: '股票',
+                      name: 'Tech Stock Portfolio',
+                      type: 'Stock',
                       amount: 15000,
                       shares: 500,
                       currentPrice: 32.5,
@@ -64,7 +64,7 @@ export default function InvestmentsPage() {
                         <div>
                           <h3 className="font-semibold text-gray-900">{investment.name}</h3>
                           <p className="text-sm text-gray-600">
-                            {investment.type} • {investment.shares} 份
+                            {investment.type} • {investment.shares} shares
                           </p>
                         </div>
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${
@@ -72,22 +72,22 @@ export default function InvestmentsPage() {
                           investment.riskLevel === 'medium' ? 'bg-yellow-100 text-yellow-800' :
                           'bg-green-100 text-green-800'
                         }`}>
-                          {investment.riskLevel === 'high' ? '高风险' :
-                           investment.riskLevel === 'medium' ? '中风险' : '低风险'}
+                          {investment.riskLevel === 'high' ? 'High Risk' :
+                           investment.riskLevel === 'medium' ? 'Medium Risk' : 'Low Risk'}
                         </span>
                       </div>
                       
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                         <div>
-                          <p className="text-gray-600">投资金额</p>
+                          <p className="text-gray-600">Investment Amount</p>
                           <p className="font-medium">¥{investment.amount.toLocaleString()}</p>
                         </div>
                         <div>
-                          <p className="text-gray-600">当前价格</p>
+                          <p className="text-gray-600">Current Price</p>
                           <p className="font-medium">¥{investment.currentPrice}</p>
                         </div>
                         <div>
-                          <p className="text-gray-600">收益率</p>
+                          <p className="text-gray-600">Return Rate</p>
                           <p className={`font-medium ${
                             investment.return > 0 ? 'text-green-600' : 'text-red-600'
                           }`}>
@@ -95,7 +95,7 @@ export default function InvestmentsPage() {
                           </p>
                         </div>
                         <div>
-                          <p className="text-gray-600">当前价值</p>
+                          <p className="text-gray-600">Current Value</p>
                           <p className="font-medium">
                             ¥{(investment.shares * investment.currentPrice).toLocaleString()}
                           </p>
@@ -106,12 +106,12 @@ export default function InvestmentsPage() {
                 </div>
                 
                 <div className="mt-6">
-                  <h3 className="font-semibold text-gray-900 mb-3">资产配置</h3>
+                  <h3 className="font-semibold text-gray-900 mb-3">Asset Allocation</h3>
                   <div className="space-y-2">
                     {[
-                      { name: '股票', percentage: 43, color: 'bg-blue-500' },
-                      { name: '债券', percentage: 31, color: 'bg-green-500' },
-                      { name: '基金', percentage: 26, color: 'bg-purple-500' },
+                      { name: 'Stocks', percentage: 43, color: 'bg-blue-500' },
+                      { name: 'Bonds', percentage: 31, color: 'bg-green-500' },
+                      { name: 'Funds', percentage: 26, color: 'bg-purple-500' },
                     ].map((asset) => (
                       <div key={asset.name} className="flex items-center justify-between">
                         <span className="text-sm text-gray-600">{asset.name}</span>
@@ -135,13 +135,13 @@ export default function InvestmentsPage() {
                 <InvestmentRadarChart 
                   riskLevel="medium"
                   currentAllocation={[
-                    { type: '股票', percentage: 43 },
-                    { type: '债券', percentage: 31 },
+                    { type: 'Stocks', percentage: 43 },
+                    { type: 'Bonds', percentage: 31 },
                     { type: 'ETF', percentage: 15 },
-                    { type: '基金', percentage: 11 },
-                    { type: '加密货币', percentage: 0 },
-                    { type: '房地产', percentage: 0 },
-                    { type: '其他', percentage: 0 },
+                    { type: 'Funds', percentage: 11 },
+                    { type: 'Cryptocurrency', percentage: 0 },
+                    { type: 'Real Estate', percentage: 0 },
+                    { type: 'Others', percentage: 0 },
                   ]}
                 />
               </div>

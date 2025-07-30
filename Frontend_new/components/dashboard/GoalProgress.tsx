@@ -128,7 +128,7 @@ export default function GoalProgress() {
                   </p>
                   <p className="text-xs text-gray-500">
                     Target Date:{' '}
-                    {format(goal.deadline, 'yyyy年MM月dd日', { locale: zhCN })}
+                    {format(goal.deadline, 'MMM dd, yyyy')}
                   </p>
                 </div>
               </div>
@@ -171,7 +171,7 @@ export default function GoalProgress() {
         })}
       </div>
 
-      {/* 目标统计 */}
+      {/* Goal Statistics */}
       <div className="mt-6 pt-4 border-t border-gray-200">
         <div className="grid grid-cols-3 gap-4 text-center">
           <div>
