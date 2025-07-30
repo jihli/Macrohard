@@ -8,43 +8,72 @@ import {
   ArrowTrendingDownIcon,
   FlagIcon,
 } from "@heroicons/react/24/outline";
-
-const cards = [
-  {
-    title: "Total Assets",
-    value: "¥125,680",
-    change: "+12.5%",
-    changeType: "positive",
-    icon: BanknotesIcon,
-    color: "bg-gradient-to-r from-green-500 to-emerald-600",
-  },
-  {
-    title: "Monthly Income",
-    value: "¥15,200",
-    change: "+8.2%",
-    changeType: "positive",
-    icon: ArrowTrendingUpIcon,
-    color: "bg-gradient-to-r from-blue-500 to-cyan-600",
-  },
-  {
-    title: "Monthly Expenses",
-    value: "¥8,450",
-    change: "-3.1%",
-    changeType: "negative",
-    icon: ArrowTrendingDownIcon,
-    color: "bg-gradient-to-r from-orange-500 to-red-600",
-  },
-  {
-    title: "Savings Rate",
-    value: "44.2%",
-    change: "+2.8%",
-    changeType: "positive",
-    icon: FlagIcon,
-    color: "bg-gradient-to-r from-purple-500 to-pink-600",
-  },
-];
+import { useApi } from "@/hooks/useApi";
+import { dashboardApi } from "@/lib/api";
+import type { DashboardData } from "@/types";
 
 export default function OverviewCards() {
+  const { data: dashboardData, loading, error } = useApi(dashboardApi.getDashboardData);
+
+  if (loading) {
+    return (
+      <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-6 text-white">
+        <div className="animate-pulse">
+          <div className="h-8 bg-white/20 rounded mb-4"></div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="bg-white/10 rounded-lg p-4 h-24"></div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !dashboardData) {
+    return (
+      <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-6 text-white">
+        <div className="text-center">
+          <p className="text-red-200">Failed to load dashboard data</p>
+        </div>
+      </div>
+    );
+  }
+
+  const cards = [
+    {
+      title: "Total Assets",
+      value: `¥${dashboardData.totalBalance.toLocaleString()}`,
+      change: "+12.5%", // This would come from API in a real implementation
+      changeType: "positive" as const,
+      icon: BanknotesIcon,
+      color: "bg-gradient-to-r from-green-500 to-emerald-600",
+    },
+    {
+      title: "Monthly Income",
+      value: `¥${dashboardData.monthlyIncome.toLocaleString()}`,
+      change: "+8.2%", // This would come from API in a real implementation
+      changeType: "positive" as const,
+      icon: ArrowTrendingUpIcon,
+      color: "bg-gradient-to-r from-blue-500 to-cyan-600",
+    },
+    {
+      title: "Monthly Expenses",
+      value: `¥${dashboardData.monthlyExpenses.toLocaleString()}`,
+      change: "-3.1%", // This would come from API in a real implementation
+      changeType: "negative" as const,
+      icon: ArrowTrendingDownIcon,
+      color: "bg-gradient-to-r from-orange-500 to-red-600",
+    },
+    {
+      title: "Savings Rate",
+      value: `${dashboardData.savingsRate.toFixed(1)}%`,
+      change: "+2.8%", // This would come from API in a real implementation
+      changeType: "positive" as const,
+      icon: FlagIcon,
+      color: "bg-gradient-to-r from-purple-500 to-pink-600",
+    },
+  ];
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

@@ -11,7 +11,11 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import InvestmentRadarChart from "./InvestmentRadarChart";
+import { useApi } from "@/hooks/useApi";
+import { dashboardApi } from "@/lib/api";
+import type { DashboardData } from "@/types";
 
+// Mock investment data for chart - in real implementation this would come from API
 const investmentData = [
   { date: "1月", value: 45000, return: 5.2 },
   { date: "2月", value: 46500, return: 3.3 },
@@ -21,34 +25,67 @@ const investmentData = [
   { date: "6月", value: 52500, return: 3.3 },
 ];
 
-const topInvestments = [
-  {
-    name: "沪深300ETF",
-    type: "股票型",
-    value: 25000,
-    return: 8.5,
-    change: "+2.3%",
-  },
-  {
-    name: "债券基金A",
-    type: "债券型",
-    value: 18000,
-    return: 4.2,
-    change: "+0.8%",
-  },
-  {
-    name: "科技股组合",
-    type: "股票型",
-    value: 15000,
-    return: 12.1,
-    change: "+3.1%",
-  },
-];
+const investmentTypeLabels: Record<string, string> = {
+  stock: "股票型",
+  bond: "债券型",
+  etf: "ETF",
+  'mutual-fund': "基金",
+  crypto: "加密货币",
+  'real-estate': "房地产",
+  other: "其他",
+};
 
 export default function InvestmentSummary() {
-  const totalValue = 58000;
-  const totalReturn = 16.7;
-  const monthlyReturn = 2.8;
+  const { data: dashboardData, loading, error } = useApi(dashboardApi.getDashboardData);
+
+  if (loading) {
+    return (
+      <div className="space-y-6">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div className="animate-pulse">
+            <div className="h-6 bg-gray-200 rounded mb-6"></div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="h-24 bg-gray-200 rounded"></div>
+              ))}
+            </div>
+            <div className="h-48 bg-gray-200 rounded"></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !dashboardData) {
+    return (
+      <div className="space-y-6">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div className="text-center">
+            <p className="text-red-600">Failed to load investment data</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const { investmentSummary } = dashboardData;
+  const totalValue = investmentSummary.totalValue;
+  const totalReturn = investmentSummary.totalReturn;
+  const monthlyReturn = investmentSummary.returnPercentage;
+
+  const topInvestments = investmentSummary.topPerformers.map(investment => {
+    const currentPrice = investment.currentPrice || 0;
+    const purchasePrice = investment.purchasePrice || 0;
+    const changePercentage = purchasePrice > 0 ? ((currentPrice - purchasePrice) / purchasePrice * 100) : 0;
+    
+    return {
+      name: investment.name,
+      type: investmentTypeLabels[investment.type] || investment.type,
+      value: investment.amount,
+      return: investment.expectedReturn,
+      change: `+${changePercentage.toFixed(1)}%`,
+    };
+  });
 
   return (
     <div className="space-y-6">

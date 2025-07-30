@@ -1,39 +1,8 @@
 'use client'
 
 import React from 'react'
-
-const recommendations = [
-  {
-    id: '1',
-    type: 'saving',
-    title: '优化餐饮支出',
-    description: '根据您的消费模式，建议将餐饮预算从1500元调整至1200元，每月可节省300元。',
-    priority: 'high',
-    estimatedImpact: 300,
-    actionItems: ['减少外卖频率', '制定每周买菜计划', '寻找优惠券'],
-    icon: '🍽️',
-  },
-  {
-    id: '2',
-    type: 'investment',
-    title: '增加投资配置',
-    description: '当前储蓄率较高，建议将部分资金配置到股票型基金，提高长期收益。',
-    priority: 'medium',
-    estimatedImpact: 1200,
-    actionItems: ['研究股票型基金', '分散投资风险', '定期定额投资'],
-    icon: '📈',
-  },
-  {
-    id: '3',
-    type: 'budget',
-    title: '调整预算分配',
-    description: '娱乐支出超出预算20%，建议重新分配预算或寻找更经济的娱乐方式。',
-    priority: 'medium',
-    estimatedImpact: 200,
-    actionItems: ['寻找免费娱乐活动', '制定娱乐预算', '使用优惠券'],
-    icon: '🎯',
-  },
-]
+import { useApi } from "@/hooks/useApi";
+import { aiRecommendationsApi } from "@/lib/api";
 
 const typeColors = {
   saving: 'bg-green-100 text-green-800',
@@ -48,7 +17,73 @@ const priorityColors = {
   low: 'bg-green-100 text-green-800',
 }
 
+const typeLabels: Record<string, string> = {
+  saving: '节流',
+  investment: '投资',
+  budget: '预算',
+  tax: '税务',
+}
+
+const priorityLabels: Record<string, string> = {
+  high: '高优先级',
+  medium: '中优先级',
+  low: '低优先级',
+}
+
 export default function AIRecommendations() {
+  const { data: recommendationsData, loading, error } = useApi(aiRecommendationsApi.getRecommendations);
+
+  if (loading) {
+    return (
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <div className="animate-pulse">
+          <div className="h-6 bg-gray-200 rounded mb-6"></div>
+          <div className="space-y-4">
+            {[...Array(3)].map((_, i) => (
+              <div key={i} className="border border-gray-200 rounded-lg p-4">
+                <div className="h-4 bg-gray-200 rounded mb-2"></div>
+                <div className="h-3 bg-gray-200 rounded mb-3"></div>
+                <div className="h-2 bg-gray-200 rounded"></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !recommendationsData) {
+    return (
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <div className="text-center">
+          <p className="text-red-600">Failed to load AI recommendations</p>
+        </div>
+      </div>
+    );
+  }
+
+  const recommendations = [
+    ...(recommendationsData.investmentRecommendations || []).map((rec: any) => ({
+      id: rec.id,
+      type: 'investment' as const,
+      title: rec.title,
+      description: rec.description,
+      priority: rec.confidence > 80 ? 'high' as const : rec.confidence > 60 ? 'medium' as const : 'low' as const,
+      estimatedImpact: rec.impact === 'positive' ? 1200 : 0,
+      actionItems: [rec.action],
+      icon: '📈',
+    })),
+    ...(recommendationsData.budgetRecommendations || []).map((rec: any) => ({
+      id: `budget-${rec.category}`,
+      type: 'budget' as const,
+      title: `优化${rec.category}支出`,
+      description: rec.reason,
+      priority: 'medium' as const,
+      estimatedImpact: rec.savings,
+      actionItems: ['制定预算计划', '寻找优惠方式'],
+      icon: '🎯',
+    })),
+  ];
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
       <div className="flex items-center justify-between mb-6">
@@ -100,7 +135,7 @@ export default function AIRecommendations() {
                 <div className="mb-3">
                   <p className="text-xs text-gray-500 mb-2">建议行动:</p>
                   <div className="flex flex-wrap gap-1">
-                    {recommendation.actionItems.map((item, index) => (
+                    {recommendation.actionItems.map((item: string, index: number) => (
                       <span
                         key={index}
                         className="px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded-md"

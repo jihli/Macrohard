@@ -2,15 +2,9 @@
 
 import React from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
-
-const budgetData = [
-  { name: "餐饮", value: 1200, budget: 1500, color: "#3B82F6" },
-  { name: "交通", value: 800, budget: 1000, color: "#10B981" },
-  { name: "购物", value: 600, budget: 800, color: "#F59E0B" },
-  { name: "娱乐", value: 400, budget: 500, color: "#EF4444" },
-  { name: "住房", value: 3000, budget: 3500, color: "#8B5CF6" },
-  { name: "其他", value: 450, budget: 700, color: "#6B7280" },
-];
+import { useApi } from "@/hooks/useApi";
+import { dashboardApi } from "@/lib/api";
+import type { DashboardData } from "@/types";
 
 const COLORS = [
   "#3B82F6",
@@ -21,7 +15,50 @@ const COLORS = [
   "#6B7280",
 ];
 
+const categoryLabels: Record<string, string> = {
+  food: "餐饮",
+  transport: "交通",
+  shopping: "购物",
+  entertainment: "娱乐",
+  housing: "住房",
+  utilities: "水电",
+  health: "医疗",
+  education: "教育",
+  insurance: "保险",
+  other: "其他",
+};
+
 export default function BudgetProgress() {
+  const { data: dashboardData, loading, error } = useApi(dashboardApi.getDashboardData);
+
+  if (loading) {
+    return (
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <div className="animate-pulse">
+          <div className="h-6 bg-gray-200 rounded mb-6"></div>
+          <div className="h-64 bg-gray-200 rounded"></div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !dashboardData) {
+    return (
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <div className="text-center">
+          <p className="text-red-600">Failed to load budget data</p>
+        </div>
+      </div>
+    );
+  }
+
+  const budgetData = dashboardData.budgetProgress.map((item, index) => ({
+    name: categoryLabels[item.category] || item.category,
+    value: item.spent,
+    budget: item.budgeted,
+    color: COLORS[index % COLORS.length],
+  }));
+
   const totalBudget = budgetData.reduce((sum, item) => sum + item.budget, 0);
   const totalSpent = budgetData.reduce((sum, item) => sum + item.value, 0);
   const remainingBudget = totalBudget - totalSpent;

@@ -3,39 +3,9 @@
 import React from 'react'
 import { format, differenceInDays } from 'date-fns'
 import { zhCN } from 'date-fns/locale'
-
-const goals = [
-  {
-    id: '1',
-    name: '紧急备用金',
-    targetAmount: 50000,
-    currentAmount: 35000,
-    deadline: new Date('2024-06-30'),
-    type: 'emergency',
-    priority: 'high',
-    icon: '🛡️',
-  },
-  {
-    id: '2',
-    name: '欧洲旅行基金',
-    targetAmount: 30000,
-    currentAmount: 18000,
-    deadline: new Date('2024-09-15'),
-    type: 'travel',
-    priority: 'medium',
-    icon: '✈️',
-  },
-  {
-    id: '3',
-    name: '购房首付',
-    targetAmount: 200000,
-    currentAmount: 45000,
-    deadline: new Date('2025-12-31'),
-    type: 'house',
-    priority: 'high',
-    icon: '🏠',
-  },
-]
+import { useApi } from "@/hooks/useApi";
+import { dashboardApi } from "@/lib/api";
+import type { DashboardData } from "@/types";
 
 const priorityColors = {
   high: 'bg-red-100 text-red-800',
@@ -52,7 +22,52 @@ const typeColors = {
   retirement: 'bg-orange-500',
 }
 
+const goalIcons: Record<string, string> = {
+  emergency: '🛡️',
+  travel: '✈️',
+  house: '🏠',
+  car: '🚗',
+  education: '📚',
+  retirement: '🌅',
+  other: '🎯',
+}
+
 export default function GoalProgress() {
+  const { data: dashboardData, loading, error } = useApi(dashboardApi.getDashboardData);
+
+  if (loading) {
+    return (
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <div className="animate-pulse">
+          <div className="h-6 bg-gray-200 rounded mb-6"></div>
+          <div className="space-y-4">
+            {[...Array(3)].map((_, i) => (
+              <div key={i} className="border border-gray-200 rounded-lg p-4">
+                <div className="h-4 bg-gray-200 rounded mb-2"></div>
+                <div className="h-3 bg-gray-200 rounded mb-4"></div>
+                <div className="h-2 bg-gray-200 rounded"></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !dashboardData) {
+    return (
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <div className="text-center">
+          <p className="text-red-600">Failed to load goal data</p>
+        </div>
+      </div>
+    );
+  }
+
+  const goals = dashboardData.goalProgress.map(goalProgress => ({
+    ...goalProgress.goal,
+    icon: goalIcons[goalProgress.goal.type] || '🎯',
+  }));
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
       <div className="flex items-center justify-between mb-6">

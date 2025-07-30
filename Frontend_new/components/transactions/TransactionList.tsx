@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { Transaction } from "@/types";
 
 interface TransactionListProps {
@@ -108,12 +109,14 @@ export default function TransactionList({
           Transaction List
         </h2>
         <div className="flex items-center space-x-2">
-          <button
-            onClick={() => setSelectedDate(null)}
-            className="px-3 py-1.5 text-sm font-medium bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200"
-          >
-            Clear Filter
-          </button>
+          {selectedDate && (
+            <button
+              onClick={onClearFilter}
+              className="px-3 py-1.5 text-sm font-medium bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200"
+            >
+              清除筛选
+            </button>
+          )}
           <Link
             href="/transactions/new"
             className="px-3 py-1.5 text-sm font-medium bg-blue-600 text-white rounded-md hover:bg-blue-700"

@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useMemo } from 'react'
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
 import { Transaction } from '@/types'
 
 interface TransactionCalendarProps {
@@ -83,43 +84,20 @@ export default function TransactionCalendar({
     return selectedDate && date.toDateString() === selectedDate.toDateString()
   }
 
-  // 获取日期样式
-  const getDateStyles = (date: Date) => {
-    const baseStyles = "w-10 h-10 rounded-lg flex items-center justify-center text-sm font-medium transition-colors cursor-pointer"
-    
-    if (isSelectedDate(date)) {
-      return `${baseStyles} bg-blue-600 text-white`
-    }
-    
-    if (isToday(date)) {
-      return `${baseStyles} bg-blue-100 text-blue-700 hover:bg-blue-200`
-    }
-    
-    if (!isCurrentMonth(date)) {
-      return `${baseStyles} text-gray-400 hover:bg-gray-100`
-    }
-    
-    return `${baseStyles} text-gray-700 hover:bg-gray-100`
+  // 判断是否为同一天
+  const isSameDay = (date1: Date, date2: Date) => {
+    return date1.toDateString() === date2.toDateString()
   }
 
-  // 获取交易指示器样式
-  const getTransactionIndicator = (date: Date) => {
-    const count = getTransactionCount(date)
-    const amount = getTransactionAmount(date)
-    
-    if (count === 0) return null
-    
-    const isPositive = amount > 0
-    const indicatorColor = isPositive ? 'bg-green-500' : 'bg-red-500'
-    
-    return (
-      <div className="flex items-center justify-center mt-1">
-        <div className={`w-2 h-2 rounded-full ${indicatorColor}`} />
-        {count > 1 && (
-          <span className="text-xs text-gray-500 ml-1">+{count - 1}</span>
-        )}
-      </div>
-    )
+  // 判断是否为同一月
+  const isSameMonth = (date1: Date, date2: Date) => {
+    return date1.getMonth() === date2.getMonth() && 
+           date1.getFullYear() === date2.getFullYear()
+  }
+
+  // 获取交易总金额（用于显示收入/支出）
+  const getTransactionTotal = (date: Date) => {
+    return getTransactionAmount(date)
   }
 
   // 月份导航
@@ -136,106 +114,103 @@ export default function TransactionCalendar({
   const monthNames = [
     '一月', '二月', '三月', '四月', '五月', '六月',
     '七月', '八月', '九月', '十月', '十一月', '十二月'
-+       'January', 'February', 'March', 'April', 'May', 'June',
-+       'July', 'August', 'September', 'October', 'November', 'December'
-      ]
-      const dayNames = [
--       '日', '一', '二', '三', '四', '五', '六'
-+       'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'
-      ]
+  ]
+  
+  const dayNames = [
+    '日', '一', '二', '三', '四', '五', '六'
+  ]
+  
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+      <h2 className="text-xl font-semibold text-gray-900 mb-6">交易日历</h2>
       
-      return (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
--         <h2 className="text-xl font-semibold text-gray-900">交易日历</h2>
-+         <h2 className="text-xl font-semibold text-gray-900">Transaction Calendar</h2>
-          
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center space-x-2">
-              <button
-                onClick={() => setCurrentMonth((prev) => new Date(prev.getFullYear(), prev.getMonth() - 1))}
-                className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200"
-              >
-                <ChevronLeftIcon className="w-4 h-4 text-gray-600 mx-auto" />
-              </button>
-              <h3 className="text-lg font-medium">{monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}</h3>
-              <button
-                onClick={() => setCurrentMonth((prev) => new Date(prev.getFullYear(), prev.getMonth() + 1))}
-                className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200"
-              >
-                <ChevronRightIcon className="w-4 h-4 text-gray-600 mx-auto" />
-              </button>
-            </div>
-            <div className="flex items-center space-x-2">
-              <button
-                onClick={() => setCurrentMonth(new Date())}
-                className="px-3 py-1.5 text-sm font-medium bg-blue-600 text-white rounded-md hover:bg-blue-700"
-              >
-                本月
-              </button>
-              <button
-                onClick={() => setSelectedDate(null)}
-                className="px-3 py-1.5 text-sm font-medium bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200"
-              >
-                清除选择
-              </button>
-            </div>
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center space-x-2">
+          <button
+            onClick={() => navigateMonth('prev')}
+            className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center"
+          >
+            <ChevronLeftIcon className="w-4 h-4 text-gray-600" />
+          </button>
+          <h3 className="text-lg font-medium">
+            {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
+          </h3>
+          <button
+            onClick={() => navigateMonth('next')}
+            className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center"
+          >
+            <ChevronRightIcon className="w-4 h-4 text-gray-600" />
+          </button>
+        </div>
+        <div className="flex items-center space-x-2">
+          <button
+            onClick={() => setCurrentMonth(new Date())}
+            className="px-3 py-1.5 text-sm font-medium bg-blue-600 text-white rounded-md hover:bg-blue-700"
+          >
+            本月
+          </button>
+          <button
+            onClick={() => onDateSelect(new Date())}
+            className="px-3 py-1.5 text-sm font-medium bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200"
+          >
+            清除选择
+          </button>
+        </div>
+      </div>
+      
+      {/* 星期标题 */}
+      <div className="grid grid-cols-7 gap-2 mb-4">
+        {dayNames.map((day, index) => (
+          <div key={index} className="text-center text-sm font-medium text-gray-600">
+            {day}
           </div>
-          
--         {/* 星期标题 */}
-+         {/* Week Titles */}
-          <div className="grid grid-cols-7 gap-2 mb-4">
-            {dayNames.map((day, index) => (
-              <div key={index} className="text-center text-sm font-medium text-gray-600">{day}</div>
-            ))}
-          </div>
-          
--         {/* 日历网格 */}
-+         {/* Calendar Grid */}
-          <div className="grid grid-cols-7 gap-2">
-            {calendarDays.map((day, index) => (
-              <div
-                key={index}
-                className={`${
-                  isSameDay(day, new Date()) ? 'bg-blue-100 text-blue-800' : ''
-                } ${
-                  isSameMonth(day, currentMonth) ? 'text-gray-800' : 'text-gray-400'
-                } ${
-                  isSameDay(day, selectedDate) ? 'ring-2 ring-blue-500' : ''
-                } relative rounded p-2 hover:bg-gray-100 transition-colors cursor-pointer`}
-                onClick={() => setSelectedDate(day)}
-              >
-                <div className="text-center text-sm font-medium">{day.getDate()}</div>
-                <div className="flex justify-center mt-1">
-                  {getTransactionCount(day) > 0 && (
-                    <div className="flex space-x-1">
-                      {getTransactionTotal(day) > 0 ? (
-                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                      ) : (
-                        <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                      )}
-                      <span className="text-xs font-medium">{getTransactionCount(day)}</span>
-                    </div>
+        ))}
+      </div>
+      
+      {/* 日历网格 */}
+      <div className="grid grid-cols-7 gap-2">
+        {calendarDays.map((day, index) => (
+          <div
+            key={index}
+            className={`relative rounded-lg p-2 hover:bg-gray-100 transition-colors cursor-pointer ${
+              isToday(day) ? 'bg-blue-100 text-blue-800' : ''
+            } ${
+              isCurrentMonth(day) ? 'text-gray-800' : 'text-gray-400'
+            } ${
+              isSelectedDate(day) ? 'ring-2 ring-blue-500 bg-blue-50' : ''
+            }`}
+            onClick={() => onDateSelect(day)}
+          >
+            <div className="text-center text-sm font-medium">{day.getDate()}</div>
+            <div className="flex justify-center mt-1">
+              {getTransactionCount(day) > 0 && (
+                <div className="flex items-center space-x-1">
+                  {getTransactionTotal(day) > 0 ? (
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                  ) : (
+                    <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                  )}
+                  {getTransactionCount(day) > 1 && (
+                    <span className="text-xs text-gray-500">+{getTransactionCount(day) - 1}</span>
                   )}
                 </div>
-              </div>
-            ))}
-          </div>
-          
--         {/* 图例 */}
-+         {/* Legend */}
-          <div className="mt-6 flex items-center space-x-4">
-            <div className="flex items-center space-x-1">
-              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
--             <span>收入</span>
-+             <span>Income</span>
-            </div>
-            <div className="flex items-center space-x-1">
-              <div className="w-3 h-3 bg-red-500 rounded-full"></div>
--             <span>支出</span>
-+             <span>Expense</span>
+              )}
             </div>
           </div>
+        ))}
+      </div>
+      
+      {/* 图例 */}
+      <div className="mt-6 flex items-center space-x-4">
+        <div className="flex items-center space-x-1">
+          <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+          <span className="text-sm text-gray-600">收入</span>
         </div>
-      )
-    }
+        <div className="flex items-center space-x-1">
+          <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+          <span className="text-sm text-gray-600">支出</span>
+        </div>
+      </div>
+    </div>
+  )
 }
