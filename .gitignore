@@ -1,7 +1,23 @@
 # Dependencies
 /Frontend/node_modules
 /Frontend/package-lock.json
+
 /Backend/__pycache__
 /Database/node_modules
+
+
+/Frontend_new/node_modules
+/Frontend_new/package-lock.json
+
+# Next.js
+/Frontend_new/.next/cache
+/Frontend_new/.next/
+/Frontend_new/out/
+/Frontend_new/.vercel/
+
+
 # macOS
 .DS_Store
+/Frontend_new/.next/
+
+/backend/__pycache__/
