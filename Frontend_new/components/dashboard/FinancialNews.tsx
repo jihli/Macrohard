@@ -73,7 +73,28 @@ export default function FinancialNews() {
           More News
         </button>
       </div>
-
+      {/* News Subscription */}
+      <div className="m-6 p-4">
+        <h4 className="text-sm font-medium text-gray-900 mb-3">
+          Subscribe to Topics
+        </h4>
+        <div className="flex flex-wrap gap-2">
+          {[
+            'Market Trends',
+            'Stock Analysis',
+            'Economic Policies',
+            'Real Estate',
+            'Investment',
+          ].map((topic) => (
+            <button
+              key={topic}
+              className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-colors"
+            >
+              {topic}
+            </button>
+          ))}
+        </div>
+      </div>
       <div className="space-y-4">
         {news.map((item: any) => (
           <div
@@ -138,28 +159,7 @@ export default function FinancialNews() {
         ))}
       </div>
 
-      {/* News Subscription */}
-      <div className="mt-6 pt-4 border-t border-gray-200">
-        <h4 className="text-sm font-medium text-gray-900 mb-3">
-          Subscribe to Topics
-        </h4>
-        <div className="flex flex-wrap gap-2">
-          {[
-            'Market Trends',
-            'Stock Analysis',
-            'Economic Policies',
-            'Real Estate',
-            'Investment',
-          ].map((topic) => (
-            <button
-              key={topic}
-              className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-colors"
-            >
-              {topic}
-            </button>
-          ))}
-        </div>
-      </div>
+
     </div>
   );
 }
