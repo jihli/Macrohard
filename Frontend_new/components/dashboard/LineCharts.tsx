@@ -30,7 +30,7 @@ const data = [
 
 export default function LineCharts() {
   return (
-    <div className="mb-6 bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <div className="mb-6 bg-white rounded-xl shadow-sm border border-gray-100 p-6">
       <h4 className="text-lg font-semibold text-gray-900 mb-4">
         Total Assets Trend
       </h4>

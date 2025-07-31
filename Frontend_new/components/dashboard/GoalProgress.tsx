@@ -6,6 +6,7 @@ import { zhCN } from 'date-fns/locale';
 import { useApi } from '@/hooks/useApi';
 import { dashboardApi } from '@/lib/api';
 import type { DashboardData } from '@/types';
+import LineCharts from './LineCharts';
 
 const priorityColors = {
   high: 'bg-red-100 text-red-800',
@@ -195,7 +196,7 @@ export default function GoalProgress() {
       </div>
 
       {/* Goal Statistics */}
-      <div className="mt-6 pt-4 border-t border-gray-200">
+      {/* <div className="mt-6 pt-4 border-t border-gray-200">
         <div className="grid grid-cols-3 gap-4 text-center">
           <div>
             <p className="text-2xl font-bold text-gray-900">3</p>
@@ -210,7 +211,9 @@ export default function GoalProgress() {
             <p className="text-xs text-gray-600">Total Goal</p>
           </div>
         </div>
-      </div>
+      </div> */}
+        <div className="mb-6"></div>
+<LineCharts />
     </div>
   );
 }

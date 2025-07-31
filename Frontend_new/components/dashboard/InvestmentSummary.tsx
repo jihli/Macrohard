@@ -158,18 +158,7 @@ export default function InvestmentSummary() {
       </div>
 
       {/* 雷达图 - 资产配置对比 */}
-      <InvestmentRadarChart
-        riskLevel="medium"
-        currentAllocation={[
-          { type: '股票', percentage: 43 },
-          { type: '债券', percentage: 31 },
-          { type: 'ETF', percentage: 15 },
-          { type: '基金', percentage: 11 },
-          { type: '加密货币', percentage: 0 },
-          { type: '房地产', percentage: 0 },
-          { type: '其他', percentage: 0 },
-        ]}
-      />
+  
     </div>
   );
 }

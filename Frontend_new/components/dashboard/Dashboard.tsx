@@ -70,26 +70,26 @@ const Dashboard: React.FC = () => {
       {/* Recent Transactions */}
       <RecentTransactions />
 
-      {/* Other Components */}
-         {/* Radar Chart - Asset Allocation Comparison */}
-      <InvestmentRadarChart
+  
+       
+         
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+       <GoalProgress />
+        <InvestmentRadarChart
         riskLevel="medium"
         currentAllocation={[
-          { type: 'Stocks', percentage: 43 },
-          { type: 'Bonds', percentage: 31 },
-          { type: 'ETFs', percentage: 15 },
-          { type: 'Mutual Funds', percentage: 11 },
-          { type: 'Cryptocurrencies', percentage: 0 },
-          { type: 'Real Estate', percentage: 0 },
-          { type: 'Other', percentage: 0 },
+          { type: '股票', percentage: 43 },
+          { type: '债券', percentage: 31 },
+          { type: 'ETF', percentage: 15 },
+          { type: '基金', percentage: 11 },
+          { type: '加密货币', percentage: 0 },
+          { type: '房地产', percentage: 0 },
+          { type: '其他', percentage: 0 },
         ]}
       />
-       <LineCharts />
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <GoalProgress />
-        <InvestmentSummary />
       </div>
-
+<InvestmentSummary />
+   
       <FinancialNews />
       {/* <UnifiedWelcomeCard /> */}
      
