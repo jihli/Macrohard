@@ -84,14 +84,15 @@ const Dashboard: React.FC = () => {
           { type: 'Other', percentage: 0 },
         ]}
       />
+       <LineCharts />
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <GoalProgress />
         <InvestmentSummary />
       </div>
 
       <FinancialNews />
-      <UnifiedWelcomeCard />
-      <LineCharts />
+      {/* <UnifiedWelcomeCard /> */}
+     
     </div>
   );
 };

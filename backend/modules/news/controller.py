@@ -13,14 +13,14 @@ bp = Blueprint('news', __name__)
 def get_news():
     """
     GET /api/news
-    获取最新的金融新闻和市场数据
+    Get latest financial news and market data
     """
     try:
-        # 获取查询参数
+        # Get query parameters
         category = request.args.get('category', 'finance')
-        limit = int(request.args.get('limit', 2))  # 默认只返回2条新闻
+        limit = int(request.args.get('limit', 2))  # Default to return only 2 news items
         
-        # 限制最大返回数量为5条，提高响应速度
+        # Limit maximum return count to 5 to improve response speed
         limit = min(limit, 5)
         
         # 1) 获取新闻数据
