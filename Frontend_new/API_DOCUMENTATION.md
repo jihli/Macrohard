@@ -6,7 +6,7 @@
 
 ## 基础信息
 
-- **Base URL**: `http://localhost:3000/api`
+- **Base URL**: `http://localhost:5001/api`
 - **Content-Type**: `application/json`
 - **认证方式**: Bearer Token (待实现)
 - **响应格式**: JSON

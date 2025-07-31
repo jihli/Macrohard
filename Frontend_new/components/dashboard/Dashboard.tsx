@@ -84,7 +84,7 @@ const Dashboard: React.FC = () => {
           { type: '基金', percentage: 11 },
           { type: '加密货币', percentage: 0 },
           { type: '房地产', percentage: 0 },
-          { type: '其他', percentage: 0 },
+          { type: 'Other', percentage: 0 },
         ]}
       />
       </div>

@@ -71,7 +71,7 @@ export default function TransactionList({
       interest: "Interest",
       other: "Other",
     };
-    return names[category] || "其他";
+    return names[category] || "Other";
   };
 
   if (transactions.length === 0) {

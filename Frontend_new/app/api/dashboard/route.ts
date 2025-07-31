@@ -3,7 +3,7 @@ import type { DashboardData } from '@/types'
 
 export async function GET() {
   try {
-    const url='https://literate-space-goggles-6vp45vrpq424vwp-5000.app.github.dev/'
+    const url='http://localhost:5001/'
     const response = await fetch(url+'api/dashboard', {
       headers: {
         'Content-Type': 'application/json',

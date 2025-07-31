@@ -122,7 +122,7 @@ export default function TransactionCalendar({
   
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-      <h2 className="text-xl font-semibold text-gray-900 mb-6">交易日历</h2>
+      <h2 className="text-xl font-semibold text-gray-900 mb-6">Transactions Calendar</h2>
       
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center space-x-2">
@@ -147,13 +147,13 @@ export default function TransactionCalendar({
             onClick={() => setCurrentMonth(new Date())}
             className="px-3 py-1.5 text-sm font-medium bg-blue-600 text-white rounded-md hover:bg-blue-700"
           >
-            本月
+            This Month
           </button>
           <button
             onClick={() => onDateSelect(new Date())}
             className="px-3 py-1.5 text-sm font-medium bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200"
           >
-            清除选择
+            Clear Filter
           </button>
         </div>
       </div>
