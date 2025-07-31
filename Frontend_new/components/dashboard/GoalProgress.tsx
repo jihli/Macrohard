@@ -81,6 +81,29 @@ export default function GoalProgress() {
         </button>
       </div>
 
+                
+                <div className="space-y-6">
+                  <div className="text-center p-4 bg-blue-50 rounded-lg">
+                    <p className="text-2xl font-bold text-blue-600">3</p>
+                    <p className="text-sm text-gray-600">Active Goals</p>
+                  </div>
+                  
+                  <div className="text-center p-4 bg-green-50 rounded-lg">
+                    <p className="text-2xl font-bold text-green-600">¥133,000</p>
+                    <p className="text-sm text-gray-600">Total Target Amount</p>
+                  </div>
+                  
+                  <div className="text-center p-4 bg-purple-50 rounded-lg">
+                    <p className="text-2xl font-bold text-purple-600">¥133,000</p>
+                    <p className="text-sm text-gray-600">Saved Amount</p>
+                  </div>
+                  
+                  <div className="text-center p-4 bg-orange-50 rounded-lg">
+                    <p className="text-2xl font-bold text-orange-600">56.8%</p>
+                    <p className="text-sm text-gray-600">Average Completion</p>
+                  </div>
+                </div>
+             
       <div className="space-y-6">
         {goals.map((goal) => {
           const progress = (goal.currentAmount / goal.targetAmount) * 100;
