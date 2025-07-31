@@ -86,7 +86,7 @@ export default function OverviewCards() {
           Welcome back, Zhang Xiaoming!
         </h1>
         <p className="text-blue-100">
-          今天是{" "}
+          Today is{" "}
           {new Date().toLocaleDateString("zh-CN", {
             year: "numeric",
             month: "long",

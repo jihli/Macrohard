@@ -152,13 +152,13 @@ def fetch_news_data(category, limit):
 
 
 def fetch_market_data():
-    """获取市场数据 - 使用 NewsAPI.org 获取市场相关新闻"""
+    """Get market data - using NewsAPI.org to get market-related news"""
     try:
-        # 使用 NewsAPI.org 获取市场相关新闻，从中提取市场情绪
-        api_key = os.getenv('NEWS_API_KEY', '6c4be3f6a2bc4d8cc26e67390f791f')  # 从环境变量获取
+        # Use NewsAPI.org to get market-related news and extract market sentiment from it
+        api_key = os.getenv('NEWS_API_KEY', '6c4be3f6a2bc4d4d8cc26e67390f791f')  # Get from environment variables
         base_url = "https://newsapi.org/v2/everything"
         
-        # 获取市场相关新闻
+        # Get market-related news
         params = {
             'q': 'stock market OR trading OR investment',
             'from': (datetime.now() - timedelta(days=7)).strftime('%Y-%m-%d'),
@@ -173,7 +173,7 @@ def fetch_market_data():
             data = response.json()
             
             if data.get('status') == 'ok' and data.get('articles'):
-                # 分析市场新闻情感，生成模拟市场数据
+                # Analyze market news sentiment and generate simulated market data
                 positive_count = 0
                 negative_count = 0
                 
@@ -184,34 +184,34 @@ def fetch_market_data():
                     elif any(word in title for word in ['fall', 'drop', 'down', 'negative', 'bearish']):
                         negative_count += 1
                 
-                # 基于新闻情感生成市场数据
+                # Generate market data based on news sentiment
                 market_data = []
                 
-                # 标普500
+                # S&P 500
                 sp500_trend = "up" if positive_count > negative_count else "down"
                 sp500_change = "+1.2%" if sp500_trend == "up" else "-0.8%"
                 market_data.append({
-                    "name": "标普500",
+                    "name": "S&P 500",
                     "value": "4,567.89",
                     "change": sp500_change,
                     "trend": sp500_trend
                 })
                 
-                # 道琼斯
+                # Dow Jones
                 dow_trend = "up" if positive_count > negative_count else "down"
                 dow_change = "+0.9%" if dow_trend == "up" else "-0.6%"
                 market_data.append({
-                    "name": "道琼斯",
+                    "name": "Dow Jones",
                     "value": "35,678.90",
                     "change": dow_change,
                     "trend": dow_trend
                 })
                 
-                # 纳斯达克
+                # NASDAQ
                 nasdaq_trend = "up" if positive_count > negative_count else "down"
                 nasdaq_change = "+1.5%" if nasdaq_trend == "up" else "-1.1%"
                 market_data.append({
-                    "name": "纳斯达克",
+                    "name": "NASDAQ",
                     "value": "14,567.34",
                     "change": nasdaq_change,
                     "trend": nasdaq_trend
@@ -219,179 +219,179 @@ def fetch_market_data():
                 
                 return market_data
         
-        # 如果无法获取数据，返回空数组
+        # If unable to get data, return empty array
         return []
         
     except Exception as e:
-        print(f"获取市场数据时发生错误: {str(e)}")
+        print(f"Error occurred while getting market data: {str(e)}")
         return []
 
 
-# 移除所有模拟数据生成函数，确保只使用真实API
+# Remove all simulated data generation functions to ensure only real API is used
 
 
 def generate_recommendations(news_data, market_data):
-    """生成投资建议 - 基于真实新闻内容"""
+    """Generate investment recommendations - based on real news content"""
     recommendations = []
     
-    # 分析新闻情感和内容
+    # Analyze news sentiment and content
     positive_news = [news for news in news_data if news['impact'] == 'positive']
     negative_news = [news for news in news_data if news['impact'] == 'negative']
     
-    # 分析市场趋势
+    # Analyze market trends
     up_trends = [market for market in market_data if market['trend'] == 'up']
     down_trends = [market for market in market_data if market['trend'] == 'down']
     
-    # 基于真实新闻内容生成建议
-    for news in news_data[:3]:  # 分析前3条新闻
+    # Generate recommendations based on real news content
+    for news in news_data[:3]:  # Analyze first 3 news items
         title_lower = news['title'].lower()
         
-        # 科技相关
+        # Technology related
         if any(word in title_lower for word in ['technology', 'ai', 'artificial intelligence', 'tech', 'software', 'digital']):
             recommendations.append({
-                "title": "关注科技股",
-                "description": f"基于新闻《{news['title'][:30]}...》，科技行业创新不断，建议关注人工智能、芯片等前沿技术板块",
-                "category": "板块推荐"
+                "title": "Focus on Tech Stocks",
+                "description": f"Based on news '{news['title'][:30]}...', the tech industry continues to innovate. Consider AI, semiconductor, and other frontier technology sectors",
+                "category": "Sector Recommendation"
             })
             break
         
-        # 加密货币相关
+        # Cryptocurrency related
         elif any(word in title_lower for word in ['bitcoin', 'crypto', 'blockchain', 'ethereum', 'defi', 'nft']):
             recommendations.append({
-                "title": "加密货币投资需谨慎",
-                "description": f"基于新闻《{news['title'][:30]}...》，加密货币市场波动较大，建议控制仓位，注意风险",
-                "category": "风险提示"
+                "title": "Cryptocurrency Investment Requires Caution",
+                "description": f"Based on news '{news['title'][:30]}...', cryptocurrency market is highly volatile. Recommend controlling position size and managing risks",
+                "category": "Risk Warning"
             })
             break
         
-        # 新能源相关
+        # Clean energy related
         elif any(word in title_lower for word in ['energy', 'electric', 'renewable', 'tesla', 'ev', 'solar', 'wind']):
             recommendations.append({
-                "title": "布局新能源",
-                "description": f"基于新闻《{news['title'][:30]}...》，新能源行业发展前景广阔，建议关注相关产业链投资机会",
-                "category": "行业推荐"
+                "title": "Deploy Clean Energy",
+                "description": f"Based on news '{news['title'][:30]}...', clean energy industry has broad development prospects. Consider related industrial chain investment opportunities",
+                "category": "Industry Recommendation"
             })
             break
         
-        # 金融相关
+        # Finance related
         elif any(word in title_lower for word in ['finance', 'banking', 'investment', 'market', 'trading', 'stock']):
             recommendations.append({
-                "title": "关注金融市场",
-                "description": f"基于新闻《{news['title'][:30]}...》，金融市场动态值得关注，建议密切关注政策变化和市场趋势",
-                "category": "市场分析"
+                "title": "Focus on Financial Markets",
+                "description": f"Based on news '{news['title'][:30]}...', financial market dynamics are worth attention. Recommend closely monitoring policy changes and market trends",
+                "category": "Market Analysis"
             })
             break
     
-    # 基于市场趋势生成建议
+    # Generate recommendations based on market trends
     if len(up_trends) > len(down_trends) and len(positive_news) > len(negative_news):
         recommendations.append({
-            "title": "市场情绪向好",
-            "description": f"市场整体呈上涨趋势，{len(up_trends)}个指数上涨，{len(positive_news)}条正面新闻，可考虑适度增加仓位",
-            "category": "市场策略"
+            "title": "Market Sentiment is Positive",
+            "description": f"Market overall shows upward trend, {len(up_trends)} indices rising, {len(positive_news)} positive news. Consider moderately increasing positions",
+            "category": "Market Strategy"
         })
     elif len(down_trends) > len(up_trends) or len(negative_news) > len(positive_news):
         recommendations.append({
-            "title": "保持谨慎态度",
-            "description": f"市场存在不确定性，{len(down_trends)}个指数下跌，{len(negative_news)}条负面新闻，建议控制风险",
-            "category": "风险控制"
+            "title": "Maintain Cautious Attitude",
+            "description": f"Market has uncertainties, {len(down_trends)} indices declining, {len(negative_news)} negative news. Recommend controlling risks",
+            "category": "Risk Control"
         })
     
-    # 如果没有特定建议，提供基于数据的通用建议
+    # If no specific recommendations, provide general advice based on data
     if not recommendations:
         total_news = len(news_data)
         positive_ratio = len(positive_news) / total_news if total_news > 0 else 0
         
         if positive_ratio > 0.6:
             recommendations.append({
-                "title": "市场情绪积极",
-                "description": f"基于{total_news}条新闻分析，{len(positive_news)}条正面新闻，市场情绪较为积极，可关注投资机会",
-                "category": "市场分析"
+                "title": "Market Sentiment is Positive",
+                "description": f"Based on analysis of {total_news} news items, {len(positive_news)} positive news. Market sentiment is relatively positive, can focus on investment opportunities",
+                "category": "Market Analysis"
             })
         else:
             recommendations.append({
-                "title": "分散投资策略",
-                "description": f"基于{total_news}条新闻分析，市场存在不确定性，建议保持投资组合的多样性，分散风险",
-                "category": "投资策略"
+                "title": "Diversified Investment Strategy",
+                "description": f"Based on analysis of {total_news} news items, market has uncertainties. Recommend maintaining portfolio diversity and spreading risks",
+                "category": "Investment Strategy"
             })
     
-    return recommendations[:2]  # 最多返回2条建议
+    return recommendations[:2]  # Return maximum 2 recommendations
 
 
 def get_query_by_category(category):
-    """根据分类获取查询关键词"""
+    """Get query keywords based on category"""
     category_queries = {
-        'finance': '金融 财经 经济',
-        'crypto': '比特币 加密货币 区块链',
-        'stock': '股票 股市 投资',
-        'policy': '政策 央行 货币政策',
-        'real_estate': '房地产 楼市 房价'
+        'finance': 'finance economy financial',
+        'crypto': 'bitcoin cryptocurrency blockchain',
+        'stock': 'stock market investment',
+        'policy': 'policy central bank monetary policy',
+        'real_estate': 'real estate property housing'
     }
-    return category_queries.get(category, '金融 财经')
+    return category_queries.get(category, 'finance economy')
 
 
 def get_news_category(title, description):
-    """根据新闻标题和内容判断分类"""
+    """Determine category based on news title and content"""
     text = (title + ' ' + description).lower()
     
-    # 货币政策相关
-    if any(word in text for word in ['央行', '降息', '货币政策', 'central bank', 'interest rate', 'monetary policy', 'fed', 'federal reserve']):
-        return '货币政策'
+    # Monetary policy related
+    if any(word in text for word in ['central bank', 'interest rate', 'monetary policy', 'fed', 'federal reserve']):
+        return 'Monetary Policy'
     
-    # 股市相关
-    elif any(word in text for word in ['股市', '股票', '指数', 'stock market', 'shares', 'equity', 'trading', 'dow', 'nasdaq', 's&p']):
-        return '股市动态'
+    # Stock market related
+    elif any(word in text for word in ['stock market', 'shares', 'equity', 'trading', 'dow', 'nasdaq', 's&p']):
+        return 'Stock Market'
     
-    # 房地产相关
-    elif any(word in text for word in ['房地产', '房价', '楼市', 'real estate', 'property', 'housing', 'mortgage']):
-        return '房地产'
+    # Real estate related
+    elif any(word in text for word in ['real estate', 'property', 'housing', 'mortgage']):
+        return 'Real Estate'
     
-    # 加密货币相关
-    elif any(word in text for word in ['比特币', '加密货币', 'bitcoin', 'crypto', 'blockchain', 'ethereum']):
-        return '加密货币'
+    # Cryptocurrency related
+    elif any(word in text for word in ['bitcoin', 'crypto', 'blockchain', 'ethereum']):
+        return 'Cryptocurrency'
     
-    # 科技相关
-    elif any(word in text for word in ['科技', '技术', 'technology', 'ai', 'artificial intelligence', 'software', 'digital']):
-        return '科技动态'
+    # Technology related
+    elif any(word in text for word in ['technology', 'ai', 'artificial intelligence', 'software', 'digital']):
+        return 'Technology'
     
-    # 新能源相关
-    elif any(word in text for word in ['新能源', '汽车', 'energy', 'electric', 'renewable', 'tesla', 'ev']):
-        return '行业分析'
+    # Clean energy related
+    elif any(word in text for word in ['energy', 'electric', 'renewable', 'tesla', 'ev']):
+        return 'Industry Analysis'
     
-    # 经济相关
-    elif any(word in text for word in ['经济', 'gdp', 'economy', 'economic', 'inflation', 'unemployment']):
-        return '经济动态'
+    # Economy related
+    elif any(word in text for word in ['gdp', 'economy', 'economic', 'inflation', 'unemployment']):
+        return 'Economic News'
     
-    # 公司相关
-    elif any(word in text for word in ['公司', '企业', 'company', 'corporate', 'earnings', 'revenue', 'profit']):
-        return '公司动态'
+    # Company related
+    elif any(word in text for word in ['company', 'corporate', 'earnings', 'revenue', 'profit']):
+        return 'Corporate News'
     
     else:
-        return '财经新闻'
+        return 'Financial News'
 
 
 def analyze_sentiment(title, description):
-    """简单的情感分析"""
+    """Simple sentiment analysis"""
     text = (title + ' ' + description).lower()
     
-    # 英文正面词汇
+    # English positive words
     positive_words = [
         'rise', 'gain', 'increase', 'up', 'higher', 'positive', 'growth', 'profit', 
         'surge', 'jump', 'boost', 'improve', 'strong', 'bullish', 'recovery', 'rally',
         'breakthrough', 'success', 'win', 'beat', 'exceed', 'outperform'
     ]
     
-    # 英文负面词汇
+    # English negative words
     negative_words = [
         'fall', 'drop', 'decline', 'down', 'lower', 'negative', 'loss', 'decrease',
         'crash', 'plunge', 'slump', 'worry', 'concern', 'risk', 'bearish', 'weak',
         'fail', 'miss', 'disappoint', 'trouble', 'crisis', 'recession'
     ]
     
-    # 中文词汇（保留原有的）
-    chinese_positive = ['上涨', '增长', '利好', '突破', '创新高', '支持', '优化', '回升']
-    chinese_negative = ['下跌', '下降', '利空', '跌破', '创新低', '风险', '谨慎', '担忧']
+    # Chinese words (keep original ones)
+    chinese_positive = ['rise', 'growth', 'positive', 'breakthrough', 'new high', 'support', 'optimize', 'recovery']
+    chinese_negative = ['fall', 'decline', 'negative', 'break down', 'new low', 'risk', 'caution', 'concern']
     
-    # 合并中英文词汇
+    # Combine Chinese and English words
     all_positive = positive_words + chinese_positive
     all_negative = negative_words + chinese_negative
     
@@ -407,11 +407,11 @@ def analyze_sentiment(title, description):
 
 
 def get_index_name(symbol):
-    """获取指数名称"""
+    """Get index name"""
     index_names = {
-        '^GSPC': '标普500',
-        '^DJI': '道琼斯',
-        '^IXIC': '纳斯达克',
-        '000001.SS': '上证指数'
+        '^GSPC': 'S&P 500',
+        '^DJI': 'Dow Jones',
+        '^IXIC': 'NASDAQ',
+        '000001.SS': 'Shanghai Composite'
     }
-    return index_names.get(symbol, symbol) 
+    return index_names.get(symbol, symbol)
