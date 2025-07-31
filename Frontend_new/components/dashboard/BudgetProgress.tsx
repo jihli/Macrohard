@@ -56,7 +56,10 @@ export default function BudgetProgress() {
     );
   }
 
-  const budgetData = dashboardData.budgetProgress.map((item, index) => ({
+  // Only show the first 5 records
+  const slicedBudgetProgress = dashboardData.budgetProgress.slice(0, 5);
+
+  const budgetData = slicedBudgetProgress.map((item, index) => ({
     name: categoryLabels[item.category] || item.category,
     value: item.spent,
     budget: item.budgeted,
