@@ -10,6 +10,7 @@ import InvestmentSummary from './InvestmentSummary';
 import FinancialNews from './FinancialNews';
 import UnifiedWelcomeCard from './UnifiedWelcomeCard';
 import LineCharts from './LineCharts';
+import InvestmentRadarChart from './InvestmentRadarChart';
 
 const Dashboard: React.FC = () => {
   return (
@@ -70,6 +71,19 @@ const Dashboard: React.FC = () => {
       <RecentTransactions />
 
       {/* Other Components */}
+         {/* Radar Chart - Asset Allocation Comparison */}
+      <InvestmentRadarChart
+        riskLevel="medium"
+        currentAllocation={[
+          { type: 'Stocks', percentage: 43 },
+          { type: 'Bonds', percentage: 31 },
+          { type: 'ETFs', percentage: 15 },
+          { type: 'Mutual Funds', percentage: 11 },
+          { type: 'Cryptocurrencies', percentage: 0 },
+          { type: 'Real Estate', percentage: 0 },
+          { type: 'Other', percentage: 0 },
+        ]}
+      />
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <GoalProgress />
         <InvestmentSummary />

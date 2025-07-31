@@ -206,19 +206,7 @@ export default function InvestmentSummary() {
         </div>
       </div>
 
-      {/* Radar Chart - Asset Allocation Comparison */}
-      <InvestmentRadarChart
-        riskLevel="medium"
-        currentAllocation={[
-          { type: 'Stocks', percentage: 43 },
-          { type: 'Bonds', percentage: 31 },
-          { type: 'ETFs', percentage: 15 },
-          { type: 'Mutual Funds', percentage: 11 },
-          { type: 'Cryptocurrencies', percentage: 0 },
-          { type: 'Real Estate', percentage: 0 },
-          { type: 'Other', percentage: 0 },
-        ]}
-      />
+   
     </div>
   );
 }
