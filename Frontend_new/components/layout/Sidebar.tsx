@@ -20,13 +20,13 @@ const navigation = [
   { name: "Dashboard", href: "/", icon: HomeIcon },
   { name: "Budget Management", href: "/budget", icon: ChartBarIcon },
   { name: "Expense Tracking", href: "/transactions", icon: CreditCardIcon },
+  { name: "Tax Prediction", href: "/tax", icon: DocumentTextIcon },
   { name: "Goal Management", href: "/goals", icon: FlagIcon },
   {
     name: "Investment Portfolio",
     href: "/investments",
     icon: BuildingLibraryIcon,
   },
-  { name: "Tax Prediction", href: "/tax", icon: DocumentTextIcon },
   { name: "Financial News", href: "/news", icon: NewspaperIcon },
   {
     name: "AI Recommendations",
