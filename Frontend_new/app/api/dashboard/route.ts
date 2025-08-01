@@ -3,7 +3,7 @@ import type { DashboardData } from '@/types'
 
 export async function GET() {
   try {
-    const url='http://localhost:5001/'
+    const url='http://localhost:5003/'
     const response = await fetch(url+'api/dashboard', {
       headers: {
         'Content-Type': 'application/json',

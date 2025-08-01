@@ -93,6 +93,17 @@ npm install
 ```
 
 #### 4. Start the Application
+
+##### Option A: One-Command Startup (Recommended)
+```bash
+# Linux/macOS
+./start_all.sh
+
+# Windows
+start_all.bat
+```
+
+##### Option B: Manual Startup
 ```bash
 # Terminal 1: Start Backend
 ./start_flask.sh
@@ -106,6 +117,15 @@ npm run dev
 - **Frontend**: http://localhost:3001
 - **Backend API**: http://localhost:5003
 - **Database**: localhost:3306
+
+### 🛑 Stop Services
+```bash
+# Linux/macOS
+./stop_all.sh
+
+# Windows
+stop_all.bat
+```
 
 ### 📁 Project Structure
 
@@ -313,6 +333,17 @@ npm install
 ```
 
 #### 4. 启动应用
+
+##### 选项A: 一键启动 (推荐)
+```bash
+# Linux/macOS
+./start_all.sh
+
+# Windows
+start_all.bat
+```
+
+##### 选项B: 手动启动
 ```bash
 # 终端1: 启动后端
 ./start_flask.sh
@@ -326,6 +357,15 @@ npm run dev
 - **前端**: http://localhost:3001
 - **后端API**: http://localhost:5003
 - **数据库**: localhost:3306
+
+### 🛑 停止服务
+```bash
+# Linux/macOS
+./stop_all.sh
+
+# Windows
+stop_all.bat
+```
 
 ### 📁 项目结构
 
