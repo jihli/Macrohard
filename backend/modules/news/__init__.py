@@ -1,0 +1,1 @@
+# backend/modules/news/__init__.py 
